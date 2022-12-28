@@ -1,6 +1,7 @@
 package awt;
 
 import java.awt.Button;
+
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
@@ -12,7 +13,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import db.Dao;
+import Dao.DupCheckDao;
+import Dao.InsertAccountDao;
 import db.Vo;
 
 public class SignUp extends WindowAdapter implements ActionListener {
@@ -115,7 +117,7 @@ public class SignUp extends WindowAdapter implements ActionListener {
 		if (id.getText().equals("")) {
 			dup.setText(null);
 		} else if (e.getActionCommand().equals(same.getLabel())) {
-			Dao dao = new Dao();
+			DupCheckDao dao = new DupCheckDao();
 			Vo v = new Vo(id.getText());
 			ArrayList<Vo> list = dao.dupCheck(v.getID());
 
@@ -160,7 +162,7 @@ public class SignUp extends WindowAdapter implements ActionListener {
 					b3 = false;
 				}
 				if (b1 && b2 && b3) {
-					Dao dao = new Dao();
+					InsertAccountDao dao = new InsertAccountDao();
 					Vo v = new Vo(id.getText().toUpperCase(), pw.getText());
 					dao.insert(v.getID(), v.getPW());
 					frame.dispose();

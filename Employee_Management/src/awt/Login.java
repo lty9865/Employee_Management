@@ -10,7 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import db.Dao;
+import Dao.LoginDao;
 import db.Vo;
 
 public class Login extends WindowAdapter implements ActionListener {
@@ -71,7 +71,7 @@ public class Login extends WindowAdapter implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals(ok.getLabel())) {
-			Dao dao = new Dao();
+			LoginDao dao = new LoginDao();
 			Vo v = new Vo(id.getText());
 			ArrayList<Vo> list = dao.login(v.getID(), v.getPW());
 

@@ -7,21 +7,25 @@ import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDate;
 
-public class Register extends WindowAdapter implements ActionListener {
+public class Register extends WindowAdapter implements ActionListener, KeyListener {
 	private Frame frameRes;
 	private Button ok;
 	private TextField[] t;
+	private TextField moT;
 	private Label[] l;
-	private Choice ch;
+	private Choice ch, mo, y, m, d;
 
 	public Register() {
 		// 프레임
 		frameRes = new Frame("Employee registration");
 		frameRes.setLayout(null);
-		frameRes.setSize(300, 450);
+		frameRes.setSize(320, 450);
 		frameRes.setLocationRelativeTo(null);
 
 		// 라벨
@@ -48,18 +52,58 @@ public class Register extends WindowAdapter implements ActionListener {
 
 		// 텍스트필드
 		t = new TextField[l.length];
-		for (int i = 1; i < t.length; i++) {
+		for (int i = 1; i <= 2; i++) {
 			t[i] = new TextField();
-			t[i].setSize(170, 30);
+			t[i].setSize(190, 30);
 			t[i].setLocation(100, l[i].getLocation().y);
 			frameRes.add(t[i]);
 		}
+
+		// 생년월일
+		LocalDate now = LocalDate.now();
+		y = new Choice();
+		for (int i = 1920, j = now.getYear(); i <= j; i++) {
+			y.add(Integer.toString(i));
+		}
+		y.setSize(70, 30);
+		y.setLocation(100, l[3].getLocation().y);
+		frameRes.add(y);
+
+		m = new Choice();
+		for (int i = 1; i <= 12; i++) {
+			m.add(Integer.toString(i));
+		}
+		m.setSize(50, 30);
+		m.setLocation(y.getLocation().x + 80, l[3].getLocation().y);
+		frameRes.add(m);
+
+		d = new Choice();
+		for (int i = 1; i <= 31; i++) {
+			d.add(Integer.toString(i));
+		}
+		d.setSize(m.getSize());
+		d.setLocation(m.getLocation().x + 60, l[3].getLocation().y);
+		frameRes.add(d);
+
+		// 전화번호
+		mo = new Choice();
+		mo.add("010");
+		mo.add("011");
+		mo.setSize(d.getSize());
+		mo.setLocation(100, l[4].getLocation().y);
+		frameRes.add(mo);
+
+		moT = new TextField(null, 8);
+		moT.setSize(130, 30);
+		moT.setLocation(mo.getLocation().x + 60, mo.getLocation().y);
+		moT.addKeyListener(this);
+		frameRes.add(moT);
 
 		// 버튼
 		ok = new Button("추가");
 		ok.setSize(100, 50);
 		ok.setLocation((frameRes.getSize().width / 2) - (ok.getSize().width / 2),
-				(t[t.length - 1].getLocation().y) + 50);
+				(l[l.length - 1].getLocation().y) + 50);
 		ok.addActionListener(this);
 
 		frameRes.addWindowListener(this);
@@ -78,5 +122,22 @@ public class Register extends WindowAdapter implements ActionListener {
 		if (e.getActionCommand().equals(ok.getLabel())) {
 			frameRes.dispose();
 		}
+	}
+
+	// 키 리스너
+	@Override
+	public void keyTyped(KeyEvent e) {
+		int max = 8;
+		if (moT.getText().length() >= max) {
+			e.consume();
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 	}
 }
