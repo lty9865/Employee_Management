@@ -13,6 +13,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 
+import Dao.InsertUserDao;
+import db.UserVo;
+
 public class Register extends WindowAdapter implements ActionListener, KeyListener {
 	private Frame frameRes;
 	private Button ok;
@@ -62,7 +65,7 @@ public class Register extends WindowAdapter implements ActionListener, KeyListen
 		// 생년월일
 		LocalDate now = LocalDate.now();
 		y = new Choice();
-		for (int i = 1920, j = now.getYear(); i <= j; i++) {
+		for (int i = 1950, j = now.getYear(); i <= j; i++) {
 			y.add(Integer.toString(i));
 		}
 		y.setSize(70, 30);
@@ -116,10 +119,27 @@ public class Register extends WindowAdapter implements ActionListener, KeyListen
 		frameRes.dispose();
 	}
 
+	// 추가 버튼 누를 때
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getActionCommand().equals(ok.getLabel())) {
+		if (t[1].getText().isEmpty() || t[2].getText().isEmpty() || moT.getText().isEmpty()) {
+		} else if (e.getActionCommand().equals(ok.getLabel())) {
+			StringBuilder birth = new StringBuilder();
+			birth.append(y.getSelectedItem());
+			int mi = Integer.parseInt(m.getSelectedItem());
+			int di = Integer.parseInt(d.getSelectedItem());
+			birth.append(String.format("%02d", mi)); // 고쳐야함
+			birth.append(String.format("%02d", di)); // 고쳐야함
+
+			StringBuilder mobile = new StringBuilder();
+			mobile.append(mo.getSelectedItem());
+			mobile.append(moT.getText());
+
+			InsertUserDao dao = new InsertUserDao();
+			UserVo v = new UserVo(ch.getSelectedItem(), t[1].getText(), t[2].getText(), birth.toString(),
+					mobile.toString());
+			dao.insert(v.getDeptName(), v.getPos(), v.getName(), v.getBirth(), v.getMobile());
 			frameRes.dispose();
 		}
 	}

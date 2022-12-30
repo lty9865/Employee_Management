@@ -24,9 +24,9 @@ public class DeleteE extends WindowAdapter implements ActionListener {
 		frameDel.setLocationRelativeTo(null);
 
 		// 라벨
-		String[] name = { "Dep", "Pos", "Name", "Birth", "Mobile" };
+		String[] name = { "부서", "직급", "이름", "생년월일", "전화번호" };
 		l = new Label[name.length];
-		int height = 200;
+		int height = 190;
 		for (int i = 0; i < name.length; i++) {
 			l[i] = new Label(name[i]);
 			l[i].setSize(70, 30);
@@ -36,7 +36,7 @@ public class DeleteE extends WindowAdapter implements ActionListener {
 		}
 
 		// 텍스트필드(사번)
-		depID = new TextField();
+		depID = new TextField("사원번호를 입력하세요.");
 		depID.setSize(240, 30);
 		depID.setLocation(30, 60);
 
@@ -47,15 +47,17 @@ public class DeleteE extends WindowAdapter implements ActionListener {
 			t[i].setSize(170, 30);
 			t[i].setLocation(100, l[i].getLocation().y);
 			frameDel.add(t[i]);
+			t[i].setEditable(false);
+			t[i].setFocusable(false);
 		}
 
 		// 버튼
-		ok = new Button("Delete");
+		ok = new Button("삭제");
 		ok.setSize(100, 50);
 		ok.setLocation(170, ((depID.getLocation().y) + 50));
 		ok.addActionListener(this);
 
-		search = new Button("Search");
+		search = new Button("조회");
 		search.setSize(ok.getSize());
 		search.setLocation(30, ok.getLocation().y);
 		search.addActionListener(this);
@@ -75,10 +77,10 @@ public class DeleteE extends WindowAdapter implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getActionCommand().equals(ok.getLabel())) {
-			frameDel.dispose();
-		} else if(e.getActionCommand().equals(search.getLabel())) {
+		if (e.getActionCommand().equals(search.getLabel())) {
 			System.out.println("search");
+		} else if (e.getActionCommand().equals(ok.getLabel())) {
+			frameDel.dispose();
 		}
 	}
 }

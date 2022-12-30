@@ -27,4 +27,8 @@ public class ConnectDB {
 	public Statement getStmt() {
 		return stmt;
 	}
+
+	public Connection getCon() {
+		return con;
+	}
 }

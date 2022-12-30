@@ -1,9 +1,9 @@
 package awt;
 
 import java.awt.Button;
+
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.Panel;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,12 +14,17 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 public class MainScreen extends WindowAdapter implements ActionListener {
 	private Frame frame2;
 	private TextField watch;
 	private Button addB, delB, b3;
 	private Button e1, e2, e3, e4;
-	private Panel p;
+	private JTable table;
+	private DefaultTableModel model;
 
 	// 시계
 	private Thread t1;
@@ -59,12 +64,6 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		frame2.setLayout(null);
 		frame2.setSize(1200, 800);
 		frame2.setLocationRelativeTo(null);
-
-		// 패널
-		p = new Panel();
-		p.setSize(930, 640);
-		p.setLocation(30, 100);
-		p.setBackground(Color.gray);
 
 		// 시계 설정
 		watch = new TextField();
@@ -110,9 +109,18 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		e4.setLocation(880, 60);
 		e4.setBackground(Color.gray);
 
+		// 테이블 설정
+		String header[] = { "사원번호", "이름", "직급", "부서", "생년월일", "전화번호" };
+		model = new DefaultTableModel(header, 0);
+		table = new JTable(model);
+
+		JScrollPane sp = new JScrollPane(table);
+		sp.setSize(930, 640);
+		sp.setLocation(30, 100);
+		frame2.add(sp);
+
 		frame2.addWindowListener(this);
 		frame2.add(watch);
-		frame2.add(p);
 		frame2.add(addB);
 		frame2.add(delB);
 		frame2.add(b3);
