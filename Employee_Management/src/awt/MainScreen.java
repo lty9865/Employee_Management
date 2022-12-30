@@ -26,6 +26,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 	private Button addB, delB, b3;
 	private Button e1, e2, e3, e4;
 	private JTable table;
+	private JScrollPane sp;
 
 	// 시계
 	private Thread t1;
@@ -125,7 +126,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 
 		}
 		table = new JTable(contents, header);
-		JScrollPane sp = new JScrollPane(table);
+		sp = new JScrollPane(table);
 		sp.setSize(930, 640);
 		sp.setLocation(30, 100);
 		frame2.add(sp);
