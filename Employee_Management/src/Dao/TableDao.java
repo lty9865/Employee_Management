@@ -1,36 +1,38 @@
 package Dao;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import db.ConnectDB;
 import db.TableVo;
 
 public class TableDao {
 	private String query;
-	private ResultSet rs, rs2;
+	private ResultSet rs;
 
-	public TableDao() {
+	public ArrayList<TableVo> searchTable() {
+		ArrayList<TableVo> list = new ArrayList<TableVo>();
 		try {
 			ConnectDB cn = new ConnectDB();
 
 			query = "SELECT EMP_NO, NAME, POS, DEPT_NAME, BIRTH, MOBILE " + "FROM EMP e, DEPARTMENT d "
 					+ "WHERE E.DEPT_ID = D.DEPT_ID " + "ORDER BY DEPT_NAME ";
 			rs = cn.getStmt().executeQuery(query);
-			
-			while(rs.next()) {
-			model.	
+
+			while (rs.next()) {
+				String empNo1 = rs.getString("EMP_NO");
+				String name1 = rs.getString("NAME");
+				String pos1 = rs.getString("POS");
+				String deptName1 = rs.getString("DEPT_NAME");
+				String birth1 = rs.getString("BIRTH");
+				String mobile1 = rs.getString("MOBILE");
+
+				TableVo data = new TableVo(empNo1, name1, pos1, deptName1, birth1, mobile1);
+				list.add(data);
 			}
-
-			
-			String count = "SELECT count(*) FROM EMP";
-			rs2 = cn.getStmt().executeQuery(count);
-			rs2.next();
-			int num = rs2.getInt(1);
-
-			new TableVo(q[0], q[1], q[2], q[3], q[4], q[5], num);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return list;
 	}
 }

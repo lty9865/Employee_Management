@@ -8,8 +8,7 @@ import db.ConnectDB;
 import db.Vo;
 
 public class LoginDao {
-	String query;
-
+	private String query;
 	private ResultSet rs;
 
 	public ArrayList<Vo> login(String userID, String userPW) {

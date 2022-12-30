@@ -1,7 +1,6 @@
 package awt;
 
 import java.awt.Button;
-
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.TextField;
@@ -12,11 +11,14 @@ import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+
+import Dao.TableDao;
+import db.TableVo;
 
 public class MainScreen extends WindowAdapter implements ActionListener {
 	private Frame frame2;
@@ -24,7 +26,6 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 	private Button addB, delB, b3;
 	private Button e1, e2, e3, e4;
 	private JTable table;
-	private DefaultTableModel model;
 
 	// 시계
 	private Thread t1;
@@ -111,9 +112,19 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 
 		// 테이블 설정
 		String header[] = { "사원번호", "이름", "직급", "부서", "생년월일", "전화번호" };
-		model = new DefaultTableModel(header, 0);
-		table = new JTable(model);
+		TableDao td = new TableDao();
+		ArrayList<TableVo> a1 = td.searchTable();
+		String[][] contents = new String[a1.size()][header.length];
+		for (int i = 0; i < contents.length; i++) {
+			contents[i][0] = a1.get(i).getEmpNo();
+			contents[i][1] = a1.get(i).getName();
+			contents[i][2] = a1.get(i).getPos();
+			contents[i][3] = a1.get(i).getDeptName();
+			contents[i][4] = a1.get(i).getBirth();
+			contents[i][5] = a1.get(i).getMobile();
 
+		}
+		table = new JTable(contents, header);
 		JScrollPane sp = new JScrollPane(table);
 		sp.setSize(930, 640);
 		sp.setLocation(30, 100);

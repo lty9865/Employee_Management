@@ -7,19 +7,17 @@ public class TableVo {
 	private String deptName;
 	private String birth;
 	private String mobile;
-	private int num;
 
 	public TableVo() {
 	}
 
-	public TableVo(String empNo, String name, String pos, String deptName, String birth, String mobile, int num) {
+	public TableVo(String empNo, String name, String pos, String deptName, String birth, String mobile) {
 		this.empNo = empNo;
 		this.name = name;
 		this.pos = pos;
 		this.deptName = deptName;
 		this.birth = birth;
 		this.mobile = mobile;
-		this.num = num;
 	}
 
 	public String getEmpNo() {
@@ -44,9 +42,5 @@ public class TableVo {
 
 	public String getMobile() {
 		return mobile;
-	}
-
-	public int getNum() {
-		return num;
 	}
 }
