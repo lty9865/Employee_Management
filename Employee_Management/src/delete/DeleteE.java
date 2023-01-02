@@ -1,4 +1,4 @@
-package awt;
+package delete;
 
 import java.awt.Button;
 import java.awt.Frame;

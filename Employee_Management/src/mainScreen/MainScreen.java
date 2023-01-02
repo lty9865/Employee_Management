@@ -18,8 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import awt.DeleteE;
 import db.TableVo;
+import delete.DeleteE;
 import register.Register;
 
 public class MainScreen extends WindowAdapter implements ActionListener {
