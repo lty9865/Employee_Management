@@ -6,10 +6,12 @@ import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class DeleteE extends WindowAdapter implements ActionListener {
+public class DeleteE extends WindowAdapter implements ActionListener, MouseListener {
 	private Frame frameDel;
 	private Button search, ok;
 	private TextField depID;
@@ -39,6 +41,7 @@ public class DeleteE extends WindowAdapter implements ActionListener {
 		depID = new TextField("사원번호를 입력하세요.");
 		depID.setSize(240, 30);
 		depID.setLocation(30, 60);
+		depID.addMouseListener(this);
 
 		// 텍스트필드
 		t = new TextField[l.length];
@@ -79,8 +82,40 @@ public class DeleteE extends WindowAdapter implements ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals(search.getLabel())) {
 			System.out.println("search");
+			String deptNum = depID.getText();
 		} else if (e.getActionCommand().equals(ok.getLabel())) {
 			frameDel.dispose();
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getComponent().equals(depID)) {
+			depID.setText(null);
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 }

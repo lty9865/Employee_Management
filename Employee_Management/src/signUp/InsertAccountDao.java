@@ -1,4 +1,4 @@
-package Dao;
+package signUp;
 
 import java.util.ArrayList;
 
@@ -16,6 +16,9 @@ public class InsertAccountDao {
 
 			query = "INSERT INTO LOGIN VALUES ('" + userID + "', '" + userPW + "')";
 			cn.getStmt().execute(query);
+			
+			cn.getStmt().close();
+			cn.getCon().close();
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,4 +1,4 @@
-package awt;
+package register;
 
 import java.awt.Button;
 import java.awt.Choice;
@@ -13,7 +13,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 
-import Dao.InsertUserDao;
 import db.UserVo;
 
 public class Register extends WindowAdapter implements ActionListener, KeyListener {
@@ -129,8 +128,8 @@ public class Register extends WindowAdapter implements ActionListener, KeyListen
 			birth.append(y.getSelectedItem());
 			int mi = Integer.parseInt(m.getSelectedItem());
 			int di = Integer.parseInt(d.getSelectedItem());
-			birth.append(String.format("%02d", mi)); // 고쳐야함
-			birth.append(String.format("%02d", di)); // 고쳐야함
+			birth.append(String.format("%02d", mi));
+			birth.append(String.format("%02d", di));
 
 			StringBuilder mobile = new StringBuilder();
 			mobile.append(mo.getSelectedItem());

@@ -1,7 +1,7 @@
-package awt;
+package signUp;
 
 import java.awt.Button;
-
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
@@ -13,14 +13,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import Dao.DupCheckDao;
-import Dao.InsertAccountDao;
 import db.Vo;
+import font.Fonts;
 
 public class SignUp extends WindowAdapter implements ActionListener {
 	private Frame frame;
-	private TextField id, pw, dup;
-	private Label l1, l2;
+	private TextField id, pw;
+	private Label l1, l2, dup;
 	private Label c1, c2, c3;
 	private Label w;
 	private Button ok, same, ok2;
@@ -39,22 +38,21 @@ public class SignUp extends WindowAdapter implements ActionListener {
 		l1.setLocation(30, 60);
 		l2 = new Label("PW");
 		l2.setSize(l1.getSize());
-		l2.setLocation(30, l1.getLocation().y + 50);
+		l2.setLocation(30, l1.getLocation().y + 80);
 
 		// 텍스트 필드 설정
 		id = new TextField();
-		id.setSize(190, 40);
+		id.setSize(230, 40);
 		id.setLocation(l1.getLocation().x + 50, l1.getLocation().y);
 
 		pw = new TextField();
 		pw.setSize(id.getSize());
 		pw.setLocation(id.getLocation().x, l2.getLocation().y);
 
-		dup = new TextField();
-		dup.setSize(90, id.getSize().height);
-		dup.setLocation(id.getLocation().x + 250, id.getLocation().y);
+		dup = new Label();
+		dup.setSize(300, id.getSize().height);
+		dup.setLocation(id.getLocation().x, id.getLocation().y + 30);
 		dup.setFocusable(false);
-		dup.setEditable(false);
 
 		// 버튼 설정
 		ok = new Button("OK");
@@ -63,8 +61,8 @@ public class SignUp extends WindowAdapter implements ActionListener {
 		ok.addActionListener(this);
 
 		same = new Button("중복확인");
-		same.setSize(l1.getSize());
-		same.setLocation(id.getLocation().x + 190, id.getLocation().y);
+		same.setSize(80, 40);
+		same.setLocation(id.getLocation().x + 250, id.getLocation().y);
 		same.addActionListener(this);
 
 		// 비밀번호 주의사항
@@ -120,16 +118,20 @@ public class SignUp extends WindowAdapter implements ActionListener {
 			DupCheckDao dao = new DupCheckDao();
 			Vo v = new Vo(id.getText());
 			ArrayList<Vo> list = dao.dupCheck(v.getID());
+			Fonts f1 = new Fonts();
 
 			for (int i = 0; i < list.size(); i++) {
 				Vo data = (Vo) list.get(i);
 				String userID = data.getID();
 
+				dup.setFont(f1.getFont1());
 				if (userID.equals(id.getText().toUpperCase())) {
-					dup.setText("중복");
+					dup.setForeground(Color.red);
+					dup.setText("사용할 수 없는 아이디 입니다.");
 					break;
 				} else {
-					dup.setText("가능");
+					dup.setForeground(Color.blue);
+					dup.setText("사용할 수 있는 아이디 입니다.");
 				}
 			}
 		} else if (e.getActionCommand().equals(ok.getLabel())) {

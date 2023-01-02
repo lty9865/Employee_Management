@@ -1,4 +1,4 @@
-package Dao;
+package register;
 
 import java.sql.PreparedStatement;
 
@@ -60,6 +60,9 @@ public class InsertUserDao {
 			pstmt.setString(6, sb.toString());
 
 			pstmt.executeUpdate();
+
+			cn.getStmt().close();
+			cn.getCon().close();
 
 		} catch (Exception e) {
 			e.printStackTrace();

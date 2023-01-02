@@ -1,6 +1,7 @@
-package awt;
+package login;
 
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.TextField;
@@ -10,8 +11,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import Dao.LoginDao;
 import db.Vo;
+import font.Fonts;
+import mainScreen.MainScreen;
+import signUp.SignUp;
 
 public class Login extends WindowAdapter implements ActionListener {
 	private Frame frame;
@@ -61,6 +64,7 @@ public class Login extends WindowAdapter implements ActionListener {
 		frame.add(l);
 
 		frame.setVisible(true);
+
 	}
 
 	public void windowClosing(WindowEvent e) {
@@ -85,6 +89,9 @@ public class Login extends WindowAdapter implements ActionListener {
 					new MainScreen();
 					break;
 				} else {
+					Fonts f1 = new Fonts();
+					l.setFont(f1.getFont1());
+					l.setForeground(Color.RED);
 					l.setText("가입된 정보가 없습니다.");
 				}
 			}

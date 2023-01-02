@@ -16,8 +16,11 @@ public class ConnectDB {
 	public ConnectDB() {
 		try {
 			Class.forName(driver);
+			System.out.println("jdbc driver loading success.");
 			con = DriverManager.getConnection(url, user, password);
+			System.out.println("oracle connection success.");
 			stmt = con.createStatement();
+			System.out.println("statement create success.");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
