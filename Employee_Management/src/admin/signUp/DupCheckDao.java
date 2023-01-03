@@ -3,8 +3,8 @@ package admin.signUp;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import admin.db.ConnectDB;
 import admin.login.LoginVo;
+import db.ConnectDB;
 
 public class DupCheckDao {
 	private String query;

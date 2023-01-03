@@ -1,4 +1,4 @@
-package admin.font;
+package font;
 
 import java.awt.Font;
 

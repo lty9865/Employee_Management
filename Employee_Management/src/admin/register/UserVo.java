@@ -1,4 +1,4 @@
-package admin.db;
+package admin.register;
 
 public class UserVo {
 	private String deptName;

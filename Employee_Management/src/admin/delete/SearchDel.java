@@ -2,7 +2,7 @@ package admin.delete;
 
 import java.sql.ResultSet;
 
-import admin.db.ConnectDB;
+import db.ConnectDB;
 
 public class SearchDel {
 	private String query;

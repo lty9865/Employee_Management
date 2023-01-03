@@ -7,8 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import admin.db.ConnectDB;
-import admin.db.UserVo;
+import db.ConnectDB;
 
 public class InsertUserDao {
 	private PreparedStatement pstmt = null;

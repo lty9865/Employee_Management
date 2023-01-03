@@ -11,9 +11,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import admin.font.Fonts;
 import admin.mainScreen.MainScreen;
 import admin.signUp.SignUp;
+import font.Fonts;
 
 public class Login extends WindowAdapter implements ActionListener {
 	private Frame frame;

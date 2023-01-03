@@ -13,8 +13,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 
-import admin.db.UserVo;
-
 public class Register extends WindowAdapter implements ActionListener, KeyListener {
 	private Frame frameRes;
 	private Button ok;

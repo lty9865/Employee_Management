@@ -3,7 +3,7 @@ package admin.mainScreen;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import admin.db.ConnectDB;
+import db.ConnectDB;
 
 public class TableDao {
 	private String query;

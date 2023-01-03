@@ -2,8 +2,8 @@ package admin.signUp;
 
 import java.util.ArrayList;
 
-import admin.db.ConnectDB;
 import admin.login.LoginVo;
+import db.ConnectDB;
 
 public class InsertAccountDao {
 	private String query;

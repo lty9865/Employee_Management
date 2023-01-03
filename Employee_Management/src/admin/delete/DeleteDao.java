@@ -1,6 +1,6 @@
 package admin.delete;
 
-import admin.db.ConnectDB;
+import db.ConnectDB;
 
 public class DeleteDao {
 	private String query;

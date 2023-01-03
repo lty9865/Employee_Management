@@ -13,8 +13,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import admin.font.Fonts;
 import admin.login.LoginVo;
+import font.Fonts;
 
 public class SignUp extends WindowAdapter implements ActionListener {
 	private Frame frame;
