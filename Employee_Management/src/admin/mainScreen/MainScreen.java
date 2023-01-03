@@ -1,4 +1,4 @@
-package mainScreen;
+package admin.mainScreen;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -18,9 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import db.TableVo;
-import delete.DeleteE;
-import register.Register;
+import admin.delete.DeleteE;
+import admin.register.Register;
 
 public class MainScreen extends WindowAdapter implements ActionListener {
 	private Frame frame2;
@@ -32,7 +31,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 	private JTable table;
 	private JScrollPane sp;
 	private DefaultTableModel model;
-	private String header[] = { "사원번호", "이름", "직급", "부서", "생년월일", "전화번호" };
+	private String header[] = { "사원번호", "이름", "직급", "부서", "생년월일", "전화번호", "출근/퇴근" };
 	private TableDao td;
 	private ArrayList<TableVo> a1, allEmp;
 	private String[] contents;
@@ -69,12 +68,14 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		t1.start();
 	}
 
+	@SuppressWarnings("serial")
 	public MainScreen() {
 		// 프레임 설정
 		frame2 = new Frame("Employee Management");
 		frame2.setLayout(null);
 		frame2.setSize(1200, 800);
 		frame2.setLocationRelativeTo(null);
+		frame2.setResizable(false);
 
 		// 시계 설정
 		watch = new TextField();
@@ -100,7 +101,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		b3.setLocation(delB.getLocation().x, delB.getLocation().y + 90);
 
 		// 버튼(부서)
-		allBtn = new Button("전체");
+		allBtn = new Button("새로고침");
 		allBtn.setSize(80, 40);
 		allBtn.setLocation(560, 60);
 		allBtn.setBackground(Color.gray);
@@ -131,11 +132,17 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		e4.addActionListener(this);
 
 		// 테이블 설정
-		model = new DefaultTableModel(header, 0);
+		model = new DefaultTableModel(header, 0) {
+			public boolean isCellEditable(int i, int c) {
+				return false;
+			}
+		};
 		table = new JTable(model);
 		table.setRowHeight(30);
 		sp = new JScrollPane(table);
 		td = new TableDao();
+		a1 = td.searchAll();
+		makeTable();
 		sp.setSize(930, 640);
 		sp.setLocation(30, 100);
 		frame2.add(sp);
@@ -168,7 +175,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 
 			// 부서 버튼
 		} else if (e.getActionCommand().equals(allBtn.getLabel())) {
-			System.out.println("전체");
+			System.out.println("새로고침");
 			a1 = td.searchAll();
 			makeTable();
 		} else if (e.getActionCommand().equals(e1.getLabel())) {
@@ -200,6 +207,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			contents[3] = a1.get(i).getDeptName();
 			contents[4] = a1.get(i).getBirth();
 			contents[5] = a1.get(i).getMobile();
+			contents[6] = a1.get(i).getCommute();
 			model.addRow(contents);
 		}
 	}
@@ -214,6 +222,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			contents[3] = allEmp.get(i).getDeptName();
 			contents[4] = allEmp.get(i).getBirth();
 			contents[5] = allEmp.get(i).getMobile();
+			contents[6] = a1.get(i).getCommute();
 			model.addRow(contents);
 		}
 	}

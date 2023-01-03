@@ -1,6 +1,6 @@
-package main;
+package admin.main;
 
-import login.Login;
+import admin.login.Login;
 
 public class Main {
 	public static void main(String[] args) {

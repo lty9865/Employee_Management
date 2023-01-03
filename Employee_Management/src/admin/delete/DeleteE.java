@@ -1,6 +1,7 @@
-package delete;
+package admin.delete;
 
 import java.awt.Button;
+
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.TextField;
@@ -13,10 +14,11 @@ import java.awt.event.WindowEvent;
 
 public class DeleteE extends WindowAdapter implements ActionListener, MouseListener {
 	private Frame frameDel;
-	private Button search, ok;
+	private Button search, ok, cancel;
 	private TextField depID;
 	private TextField[] t;
 	private Label[] l;
+	private boolean b = true;
 
 	public DeleteE() {
 		// 프레임
@@ -25,10 +27,16 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 		frameDel.setSize(300, 450);
 		frameDel.setLocationRelativeTo(null);
 
+		// 텍스트필드(사번)
+		depID = new TextField("사원번호를 입력하세요.");
+		depID.setSize(170, 30);
+		depID.setLocation(30, 60);
+		depID.addMouseListener(this);
+
 		// 라벨
 		String[] name = { "부서", "직급", "이름", "생년월일", "전화번호" };
 		l = new Label[name.length];
-		int height = 190;
+		int height = depID.getLocation().y + depID.getSize().height + 20;
 		for (int i = 0; i < name.length; i++) {
 			l[i] = new Label(name[i]);
 			l[i].setSize(70, 30);
@@ -36,12 +44,6 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 			height = height + 50;
 			frameDel.add(l[i]);
 		}
-
-		// 텍스트필드(사번)
-		depID = new TextField("사원번호를 입력하세요.");
-		depID.setSize(240, 30);
-		depID.setLocation(30, 60);
-		depID.addMouseListener(this);
 
 		// 텍스트필드
 		t = new TextField[l.length];
@@ -57,18 +59,26 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 		// 버튼
 		ok = new Button("삭제");
 		ok.setSize(100, 50);
-		ok.setLocation(170, ((depID.getLocation().y) + 50));
+		ok.setLocation(l[l.length - 1].getLocation().x,
+				l[l.length - 1].getLocation().y + l[l.length - 1].getSize().height + 20);
 		ok.addActionListener(this);
 
 		search = new Button("조회");
-		search.setSize(ok.getSize());
-		search.setLocation(30, ok.getLocation().y);
+		search.setSize(60, 30);
+		search.setLocation(depID.getLocation().x + depID.getSize().width + 10, depID.getLocation().y);
 		search.addActionListener(this);
+
+		cancel = new Button("취소");
+		cancel.setSize(ok.getSize());
+		cancel.setLocation(t[t.length - 1].getLocation().x + t[t.length - 1].getSize().width - cancel.getSize().width,
+				ok.getLocation().y);
+		cancel.addActionListener(this);
 
 		frameDel.addWindowListener(this);
 		frameDel.add(ok);
 		frameDel.add(depID);
 		frameDel.add(search);
+		frameDel.add(cancel);
 
 		frameDel.setVisible(true);
 	}
@@ -80,10 +90,19 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		String deptNum = depID.getText();
 		if (e.getActionCommand().equals(search.getLabel())) {
 			System.out.println("search");
-			String deptNum = depID.getText();
+			SearchDel sd = new SearchDel();
+			String[] strArr = sd.strDel(deptNum);
+			for (int i = 0; i < strArr.length; i++) {
+				t[i].setText(strArr[i]);
+			}
 		} else if (e.getActionCommand().equals(ok.getLabel())) {
+			System.out.println("Delete");
+			new DeleteDao(deptNum);
+			frameDel.dispose();
+		} else if (e.getActionCommand().equals(cancel.getLabel())) {
 			frameDel.dispose();
 		}
 	}
@@ -91,14 +110,15 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getComponent().equals(depID)) {
-			depID.setText(null);
-		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
+		if (e.getComponent().equals(depID) && b) {
+			depID.setText(null);
+			b = false;
+		}
 	}
 
 	@Override

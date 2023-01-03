@@ -1,4 +1,4 @@
-package register;
+package admin.register;
 
 import java.sql.PreparedStatement;
 
@@ -7,8 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import db.ConnectDB;
-import db.UserVo;
+import admin.db.ConnectDB;
+import admin.db.UserVo;
 
 public class InsertUserDao {
 	private PreparedStatement pstmt = null;
@@ -49,7 +49,7 @@ public class InsertUserDao {
 			sb.append(c);
 
 			// 사원등록 쿼리
-			String query = "INSERT INTO EMP VALUES (?,?,?,?,?,?)";
+			String query = "INSERT INTO EMP VALUES (?,?,?,?,?,?,?)";
 			pstmt = cn.getCon().prepareStatement(query);
 
 			pstmt.setString(1, deptID);
@@ -58,6 +58,7 @@ public class InsertUserDao {
 			pstmt.setString(4, birth);
 			pstmt.setString(5, mobile);
 			pstmt.setString(6, sb.toString());
+			pstmt.setString(7, "");
 
 			pstmt.executeUpdate();
 

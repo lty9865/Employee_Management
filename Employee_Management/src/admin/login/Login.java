@@ -1,4 +1,4 @@
-package login;
+package admin.login;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -11,10 +11,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import db.Vo;
-import font.Fonts;
-import mainScreen.MainScreen;
-import signUp.SignUp;
+import admin.font.Fonts;
+import admin.mainScreen.MainScreen;
+import admin.signUp.SignUp;
 
 public class Login extends WindowAdapter implements ActionListener {
 	private Frame frame;
@@ -76,11 +75,11 @@ public class Login extends WindowAdapter implements ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals(ok.getLabel())) {
 			LoginDao dao = new LoginDao();
-			Vo v = new Vo(id.getText());
-			ArrayList<Vo> list = dao.login(v.getID(), v.getPW());
+			LoginVo v = new LoginVo(id.getText());
+			ArrayList<LoginVo> list = dao.login(v.getID(), v.getPW());
 
 			for (int i = 0; i < list.size(); i++) {
-				Vo data = (Vo) list.get(i);
+				LoginVo data = (LoginVo) list.get(i);
 				String userID = data.getID();
 				String userPW = data.getPW();
 

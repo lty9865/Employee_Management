@@ -1,4 +1,4 @@
-package signUp;
+package admin.signUp;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -13,8 +13,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import db.Vo;
-import font.Fonts;
+import admin.font.Fonts;
+import admin.login.LoginVo;
 
 public class SignUp extends WindowAdapter implements ActionListener {
 	private Frame frame;
@@ -116,12 +116,12 @@ public class SignUp extends WindowAdapter implements ActionListener {
 			dup.setText(null);
 		} else if (e.getActionCommand().equals(same.getLabel())) {
 			DupCheckDao dao = new DupCheckDao();
-			Vo v = new Vo(id.getText());
-			ArrayList<Vo> list = dao.dupCheck(v.getID());
+			LoginVo v = new LoginVo(id.getText());
+			ArrayList<LoginVo> list = dao.dupCheck(v.getID());
 			Fonts f1 = new Fonts();
 
 			for (int i = 0; i < list.size(); i++) {
-				Vo data = (Vo) list.get(i);
+				LoginVo data = (LoginVo) list.get(i);
 				String userID = data.getID();
 
 				dup.setFont(f1.getFont1());
@@ -165,7 +165,7 @@ public class SignUp extends WindowAdapter implements ActionListener {
 				}
 				if (b1 && b2 && b3) {
 					InsertAccountDao dao = new InsertAccountDao();
-					Vo v = new Vo(id.getText().toUpperCase(), pw.getText());
+					LoginVo v = new LoginVo(id.getText().toUpperCase(), pw.getText());
 					dao.insert(v.getID(), v.getPW());
 					frame.dispose();
 				} else {

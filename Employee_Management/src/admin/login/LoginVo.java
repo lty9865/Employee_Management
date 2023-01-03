@@ -1,14 +1,14 @@
-package db;
+package admin.login;
 
-public class Vo {
+public class LoginVo {
 	private String adminID;
 	private String adminPW;
 
-	public Vo(String adminID) {
+	public LoginVo(String adminID) {
 		this.adminID = adminID;
 	}
 
-	public Vo(String adminID, String adminPW) {
+	public LoginVo(String adminID, String adminPW) {
 		this.adminID = adminID;
 		this.adminPW = adminPW;
 	}

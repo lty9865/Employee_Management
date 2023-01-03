@@ -1,4 +1,4 @@
-package register;
+package admin.register;
 
 import java.awt.Button;
 import java.awt.Choice;
@@ -13,7 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 
-import db.UserVo;
+import admin.db.UserVo;
 
 public class Register extends WindowAdapter implements ActionListener, KeyListener {
 	private Frame frameRes;

@@ -1,10 +1,9 @@
-package mainScreen;
+package admin.mainScreen;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import db.ConnectDB;
-import db.TableVo;
+import admin.db.ConnectDB;
 
 public class TableDao {
 	private String query;
@@ -15,7 +14,7 @@ public class TableDao {
 		try {
 			ConnectDB cn = new ConnectDB();
 
-			query = "SELECT EMP_NO, NAME, POS, DEPT_NAME, BIRTH, MOBILE " + "FROM EMP e, DEPARTMENT d "
+			query = "SELECT EMP_NO, NAME, POS, DEPT_NAME, BIRTH, MOBILE, COMMUTE " + "FROM EMP e, DEPARTMENT d "
 					+ "WHERE E.DEPT_ID = D.DEPT_ID " + "ORDER BY DEPT_NAME ";
 			rs = cn.getStmt().executeQuery(query);
 
@@ -26,8 +25,9 @@ public class TableDao {
 				String deptName1 = rs.getString("DEPT_NAME");
 				String birth1 = rs.getString("BIRTH");
 				String mobile1 = rs.getString("MOBILE");
+				String commute1 = rs.getString("COMMUTE");
 
-				TableVo data = new TableVo(empNo1, name1, pos1, deptName1, birth1, mobile1);
+				TableVo data = new TableVo(empNo1, name1, pos1, deptName1, birth1, mobile1, commute1);
 				list.add(data);
 			}
 			cn.getStmt().close();
@@ -43,7 +43,7 @@ public class TableDao {
 		try {
 			ConnectDB cn = new ConnectDB();
 
-			query = "SELECT EMP_NO, NAME, POS, DEPT_NAME, BIRTH, MOBILE " + "FROM EMP e, DEPARTMENT d "
+			query = "SELECT EMP_NO, NAME, POS, DEPT_NAME, BIRTH, MOBILE, COMMUTE " + "FROM EMP e, DEPARTMENT d "
 					+ "WHERE E.DEPT_ID = D.DEPT_ID " + "AND D.DEPT_NAME LIKE '" + deptName + "'"
 					+ "ORDER BY DEPT_NAME ";
 			rs = cn.getStmt().executeQuery(query);
@@ -55,8 +55,9 @@ public class TableDao {
 				String deptName1 = rs.getString("DEPT_NAME");
 				String birth1 = rs.getString("BIRTH");
 				String mobile1 = rs.getString("MOBILE");
+				String commute1 = rs.getString("COMMUTE");
 
-				TableVo data = new TableVo(empNo1, name1, pos1, deptName1, birth1, mobile1);
+				TableVo data = new TableVo(empNo1, name1, pos1, deptName1, birth1, mobile1, commute1);
 				list.add(data);
 			}
 			cn.getStmt().close();

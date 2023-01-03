@@ -1,31 +1,29 @@
-package login;
+package admin.signUp;
 
 import java.sql.ResultSet;
-
 import java.util.ArrayList;
 
-import db.ConnectDB;
-import db.Vo;
+import admin.db.ConnectDB;
+import admin.login.LoginVo;
 
-public class LoginDao {
+public class DupCheckDao {
 	private String query;
 	private ResultSet rs;
 
-	public ArrayList<Vo> login(String userID, String userPW) {
-		ArrayList<Vo> list = new ArrayList<Vo>();
+	public ArrayList<LoginVo> dupCheck(String userID) {
+		ArrayList<LoginVo> list = new ArrayList<LoginVo>();
 
 		try {
 			ConnectDB cn = new ConnectDB();
+			cn.getCon();
 
 			query = "SELECT * FROM LOGIN";
 			rs = cn.getStmt().executeQuery(query);
 			while (rs.next()) {
 				String userID1 = rs.getString("ADMIN_ID");
-				String userPW1 = rs.getString("ADMIN_PW");
 
-				Vo data = new Vo(userID1, userPW1);
+				LoginVo data = new LoginVo(userID1);
 				list.add(data);
-
 			}
 			cn.getStmt().close();
 			cn.getCon().close();
@@ -35,5 +33,4 @@ public class LoginDao {
 		}
 		return list;
 	}
-
 }

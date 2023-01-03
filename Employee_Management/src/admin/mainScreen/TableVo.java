@@ -1,4 +1,4 @@
-package db;
+package admin.mainScreen;
 
 public class TableVo {
 	private String empNo;
@@ -7,17 +7,20 @@ public class TableVo {
 	private String deptName;
 	private String birth;
 	private String mobile;
+	private String commute;
 
 	public TableVo() {
 	}
 
-	public TableVo(String empNo, String name, String pos, String deptName, String birth, String mobile) {
+	public TableVo(String empNo, String name, String pos, String deptName, String birth, String mobile,
+			String commute) {
 		this.empNo = empNo;
 		this.name = name;
 		this.pos = pos;
 		this.deptName = deptName;
 		this.birth = birth;
 		this.mobile = mobile;
+		this.commute = commute;
 	}
 
 	public String getEmpNo() {
@@ -42,5 +45,9 @@ public class TableVo {
 
 	public String getMobile() {
 		return mobile;
+	}
+
+	public String getCommute() {
+		return commute;
 	}
 }

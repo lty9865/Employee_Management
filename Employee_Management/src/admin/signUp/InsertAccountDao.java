@@ -1,15 +1,15 @@
-package signUp;
+package admin.signUp;
 
 import java.util.ArrayList;
 
-import db.ConnectDB;
-import db.Vo;
+import admin.db.ConnectDB;
+import admin.login.LoginVo;
 
 public class InsertAccountDao {
 	private String query;
 
-	public ArrayList<Vo> insert(String userID, String userPW) {
-		ArrayList<Vo> list = new ArrayList<Vo>();
+	public ArrayList<LoginVo> insert(String userID, String userPW) {
+		ArrayList<LoginVo> list = new ArrayList<LoginVo>();
 
 		try {
 			ConnectDB cn = new ConnectDB();
