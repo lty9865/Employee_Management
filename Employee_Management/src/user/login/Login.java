@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import user.mainScreen.MainScreen;
 import user.signup.SignUp;
 
 public class Login extends WindowAdapter implements ActionListener {
@@ -56,7 +57,9 @@ public class Login extends WindowAdapter implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals(b1.getLabel())) {
-			new AlertFrame();
+//			new AlertFrame();
+			frame.dispose();
+			new MainScreen();
 		} else if (e.getActionCommand().equals(b2.getLabel())) {
 			new SignUp();
 		}

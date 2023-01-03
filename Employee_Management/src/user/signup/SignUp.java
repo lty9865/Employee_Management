@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import font.Fonts;
+import user.dimension.UserDimension;
 
 public class SignUp extends WindowAdapter implements ActionListener {
 	private Frame frame;
@@ -20,9 +21,10 @@ public class SignUp extends WindowAdapter implements ActionListener {
 	private Label l1, l2, l3;
 
 	public SignUp() {
+		UserDimension ud = new UserDimension();
 		frame = new Frame("Sign Up");
 		frame.setLayout(null);
-		frame.setSize(300, 420);
+		frame.setSize(ud.getWidth(), ud.getHeight());
 		frame.setLocationRelativeTo(null);
 		frame.addWindowListener(this);
 
