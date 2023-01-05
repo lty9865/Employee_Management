@@ -32,17 +32,18 @@ public class InsertUserDao {
 			sb.append(strDate);
 
 			StringBuilder count = new StringBuilder();
-			String a = "SELECT COUNT(EMP_NO) FROM EMP, DEPARTMENT WHERE EMP.DEPT_ID = DEPARTMENT.DEPT_ID ";
-			String b = "AND DEPARTMENT.DEPT_NAME LIKE " + "'" + deptName + "'";
+			String a = "SELECT SUBSTR(EMP_NO,8) sub FROM EMP, DEPARTMENT WHERE EMP.DEPT_ID = DEPARTMENT.DEPT_ID ";
+			String b = "AND DEPARTMENT.DEPT_NAME LIKE " + "'" + deptName + "' ORDER BY sub";
 			count.append(a);
 			count.append(b);
 			ResultSet countRs = cn.getStmt().executeQuery(count.toString());
-			countRs.next();
-			int num = countRs.getInt(1);
-			if (num == 0) {
-				num = 1;
-			} else {
-				num += 1;
+			int num = 1;
+			while (countRs.next()) {
+				if (num != Integer.parseInt(countRs.getString("sub"))) {
+					break;
+				} else {
+					num++;
+				}
 			}
 			String c = String.format("%04d", num);
 			sb.append(c);

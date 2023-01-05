@@ -12,6 +12,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import common.searchEmp.SearchEmpDao;
+
 public class DeleteE extends WindowAdapter implements ActionListener, MouseListener {
 	private Frame frameDel;
 	private Button search, ok, cancel;
@@ -93,8 +95,8 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 		String deptNum = depID.getText();
 		if (e.getActionCommand().equals(search.getLabel())) {
 			System.out.println("search");
-			SearchDel sd = new SearchDel();
-			String[] strArr = sd.strDel(deptNum);
+			SearchEmpDao sd = new SearchEmpDao();
+			String[] strArr = sd.searchDel(deptNum);
 			for (int i = 0; i < strArr.length; i++) {
 				t[i].setText(strArr[i]);
 			}

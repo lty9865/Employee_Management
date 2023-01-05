@@ -1,6 +1,7 @@
 package user.mainScreen;
 
 import java.awt.Button;
+
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.TextField;
@@ -22,8 +23,9 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 	private Button b1, b2, b3;
 	private SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 	private String timeStart = format.format(System.currentTimeMillis());
+	private String name1;
 
-	public MainScreen() {
+	public MainScreen(String userID) {
 		UserDimension ud = new UserDimension();
 		frame = new Frame("System");
 		frame.setLayout(null);
@@ -36,7 +38,9 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		hi.setSize(130, 20);
 		hi.setLocation(20, 40);
 
-		name = new Label("ooo");
+		SearchNameDao sndao = new SearchNameDao();
+		name1 = sndao.EmpName(userID);
+		name = new Label(name1);
 		name.setSize(90, 40);
 		name.setLocation(hi.getLocation().x, hi.getLocation().y + hi.getSize().height);
 		Fonts font = new Fonts();
@@ -55,6 +59,8 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			l[i].setSize(100, 40);
 			t[i] = new TextField();
 			t[i].setSize(160, l[i].getSize().height);
+			t[i].setEditable(false);
+			t[i].setFocusable(false);
 		}
 
 		l[0].setLocation(name.getLocation().x, name.getLocation().y + name.getSize().height + 5);
@@ -68,6 +74,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		b2 = new Button("연장신청");
 		b2.setSize(b1.getSize());
 		b2.setLocation(b1.getLocation().x, b1.getLocation().y + b1.getSize().height + 5);
+		b2.addActionListener(this);
 
 		l[2].setLocation(b2.getLocation().x, b2.getLocation().y + b2.getSize().height + 5);
 		l[3].setLocation(l[2].getLocation().x, l[2].getLocation().y + l[2].getSize().height + 5);
@@ -102,13 +109,21 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			frame.dispose();
 			new Login().userLogin();
 		}
-
 		if (e.getActionCommand().equals("출근")) {
 			t[0].setText(timeStart);
+			new InsertTimeDao(name1, b1.getLabel());
 			b1.setLabel("퇴근");
 		} else if (e.getActionCommand().equals("퇴근")) {
 			t[1].setText(timeStart);
-			b1.setLabel("출근");
+			new InsertTimeDao(name1, b1.getLabel());
+			b1.setEnabled(false);
+		}
+		if (e.getActionCommand().equals("연장신청")) {
+			t[2].setText("18:30");
+			b2.setLabel("종료");
+		} else if (e.getActionCommand().equals("종료")) {
+			t[3].setText(timeStart);
+			b2.setLabel("연장신청");
 		}
 	}
 }

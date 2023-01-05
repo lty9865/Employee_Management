@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 import admin.mainScreen.MainScreen;
 import admin.signUp.SignUp;
+import common.loginDao.LoginDao;
+import common.loginDao.LoginVo;
 import font.Fonts;
 
 public class Login extends WindowAdapter implements ActionListener {
@@ -76,7 +78,7 @@ public class Login extends WindowAdapter implements ActionListener {
 		if (e.getActionCommand().equals(ok.getLabel())) {
 			LoginDao dao = new LoginDao();
 			LoginVo v = new LoginVo(id.getText());
-			ArrayList<LoginVo> list = dao.login(v.getID(), v.getPW());
+			ArrayList<LoginVo> list = dao.adminLogin(v.getID(), v.getPW());
 
 			for (int i = 0; i < list.size(); i++) {
 				LoginVo data = (LoginVo) list.get(i);

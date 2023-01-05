@@ -222,7 +222,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			contents[3] = allEmp.get(i).getDeptName();
 			contents[4] = allEmp.get(i).getBirth();
 			contents[5] = allEmp.get(i).getMobile();
-			contents[6] = a1.get(i).getCommute();
+			contents[6] = allEmp.get(i).getCommute();
 			model.addRow(contents);
 		}
 	}

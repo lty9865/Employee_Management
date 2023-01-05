@@ -13,7 +13,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import admin.login.LoginVo;
+import common.checkpassword.CheckPassword;
+import common.loginDao.LoginVo;
+import common.signUpDao.DupCheckDao;
+import common.signUpDao.InsertAccountDao;
 import font.Fonts;
 
 public class SignUp extends WindowAdapter implements ActionListener {
@@ -135,42 +138,16 @@ public class SignUp extends WindowAdapter implements ActionListener {
 				}
 			}
 		} else if (e.getActionCommand().equals(ok.getLabel())) {
+			CheckPassword ch = new CheckPassword();
 			if (id.getText().isEmpty() && pw.getText().isEmpty()) {
 				dup.setText(null);
+			} else if (ch.CheckPW(pw.getText())) {
+				InsertAccountDao dao = new InsertAccountDao();
+				LoginVo v = new LoginVo(id.getText().toUpperCase(), pw.getText());
+				dao.insert(v.getID(), v.getPW());
+				frame.dispose();
 			} else {
-				String str = pw.getText();
-				boolean b1 = true;
-				boolean b2 = true;
-				boolean b3 = true;
-				int cNum = 0;
-				int cSym = 0;
-				if (str.length() < 8) {
-					b1 = false;
-				}
-				for (int i = 0; i < str.length(); i++) {
-					if (str.charAt(i) >= 48 && str.charAt(i) <= 57) {
-						cNum++;
-					} else if ((str.charAt(i) >= 33 && str.charAt(i) <= 47)
-							|| (str.charAt(i) >= 58 && str.charAt(i) <= 64)
-							|| (str.charAt(i) <= 91 && str.charAt(i) <= 96)
-							|| (str.charAt(i) >= 123 && str.charAt(i) <= 126)) {
-						cSym++;
-					}
-				}
-				if (cNum == 0) {
-					b2 = false;
-				}
-				if (cSym == 0) {
-					b3 = false;
-				}
-				if (b1 && b2 && b3) {
-					InsertAccountDao dao = new InsertAccountDao();
-					LoginVo v = new LoginVo(id.getText().toUpperCase(), pw.getText());
-					dao.insert(v.getID(), v.getPW());
-					frame.dispose();
-				} else {
-					insertD();
-				}
+				insertD();
 			}
 		} else if (e.getActionCommand().equals(ok2.getLabel())) {
 			info.dispose();

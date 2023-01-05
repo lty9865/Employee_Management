@@ -15,7 +15,7 @@ public class TableDao {
 			ConnectDB cn = new ConnectDB();
 
 			query = "SELECT EMP_NO, NAME, POS, DEPT_NAME, BIRTH, MOBILE, COMMUTE " + "FROM EMP e, DEPARTMENT d "
-					+ "WHERE E.DEPT_ID = D.DEPT_ID " + "ORDER BY DEPT_NAME ";
+					+ "WHERE e.DEPT_ID = d.DEPT_ID " + "ORDER BY EMP_NO";
 			rs = cn.getStmt().executeQuery(query);
 
 			while (rs.next()) {
@@ -44,8 +44,7 @@ public class TableDao {
 			ConnectDB cn = new ConnectDB();
 
 			query = "SELECT EMP_NO, NAME, POS, DEPT_NAME, BIRTH, MOBILE, COMMUTE " + "FROM EMP e, DEPARTMENT d "
-					+ "WHERE E.DEPT_ID = D.DEPT_ID " + "AND D.DEPT_NAME LIKE '" + deptName + "'"
-					+ "ORDER BY DEPT_NAME ";
+					+ "WHERE E.DEPT_ID = D.DEPT_ID " + "AND D.DEPT_NAME LIKE '" + deptName + "'" + "ORDER BY EMP_NO";
 			rs = cn.getStmt().executeQuery(query);
 
 			while (rs.next()) {
