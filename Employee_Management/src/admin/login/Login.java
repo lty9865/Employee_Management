@@ -1,9 +1,11 @@
 package admin.login;
 
 import java.awt.Button;
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Label;
+import java.awt.Panel;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,58 +13,91 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import admin.demension.AdminDimension;
 import admin.mainScreen.MainScreen;
 import admin.signUp.SignUp;
 import common.loginDao.LoginDao;
 import common.loginDao.LoginVo;
 import font.Fonts;
+import user.mainScreen.UserMainScreen;
+import user.signup.UserSignUp;
 
 public class Login extends WindowAdapter implements ActionListener {
 	private Frame frame;
 	private TextField id, pw;
 	private Button ok, sign;
-	private Label l;
+	private Label l, id1, pw1;
+//	private Label title1, title2, title3;
+	private Panel p;
+	private Checkbox cb;
+
+	Fonts font = new Fonts();
+	AdminDimension ad = new AdminDimension();
 
 	public Login() {
 		// 프레임 설정
 		frame = new Frame("Employee Management");
 		frame.setLayout(null);
-		frame.setSize(300, 450);
+		frame.setSize(ad.getWidth(), ad.getHeight());
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 
-		// 텍스트 필드 설정
+		// 입력창 설정
+		id1 = new Label("USERNAME");
+		id1.setSize(80, 20);
+		id1.setLocation(30, (frame.getSize().height / 2) - ((id1.getSize().height) / 2) - 70);
+		id1.setFont(font.getFont3());
 		id = new TextField();
-		id.setSize((frame.getSize().width - 60), 40);
-		id.setLocation((frame.getSize().width / 2) - ((id.getSize().width / 2)),
-				(frame.getSize().height / 2) - ((id.getSize().height) / 2) - 30);
+		id.setSize(330, 40);
+		id.setLocation(id1.getLocation().x, id1.getLocation().y + id1.getSize().height);
+
+		pw1 = new Label("PASSWORD");
+		pw1.setSize(id1.getSize());
+		pw1.setLocation(id.getLocation().x, id.getLocation().y + id.getSize().height + 20);
+		pw1.setFont(font.getFont3());
 		pw = new TextField();
-		pw.setSize((frame.getSize().width - 60), 40);
-		pw.setLocation(id.getLocation().x, id.getLocation().y + 60);
+		pw.setSize(id.getSize());
+		pw.setLocation(pw1.getLocation().x, pw1.getLocation().y + pw1.getSize().height);
 		pw.setEchoChar('*');
 
 		// 버튼 설정
 		ok = new Button("로그인");
-		ok.setSize(100, 50);
-		ok.setLocation(30, pw.getLocation().y + 80);
+		ok.setSize(id.getSize());
+		ok.setLocation(pw.getLocation().x, pw.getLocation().y + 90);
 		ok.addActionListener(this);
 
 		sign = new Button("회원가입");
 		sign.setSize(ok.getSize());
-		sign.setLocation(170, ok.getLocation().y);
+		sign.setLocation(ok.getLocation().x, ok.getLocation().y + ok.getSize().height + 10);
 		sign.addActionListener(this);
 
 		// 라벨
 		l = new Label("");
 		l.setSize(id.getSize());
-		l.setLocation(ok.getLocation().x, ok.getLocation().y + 65);
+		l.setLocation(pw.getLocation().x, pw.getLocation().y + pw.getSize().height);
+
+		// 패널
+		p = new Panel();
+		p.setSize(frame.getSize().width - (id.getLocation().x + id.getSize().width) + 10, frame.getSize().height);
+		p.setLocation(id.getLocation().x + id.getSize().width + 15, 0);
+		p.setBackground(Color.gray);
+
+		// 체크박스
+		cb = new Checkbox("관리자");
+		cb.setSize(55, 30);
+		cb.setLocation(id1.getLocation().x + id.getSize().width - cb.getSize().width,
+				id.getLocation().y + id.getSize().height);
 
 		frame.addWindowListener(this);
+		frame.add(id1);
+		frame.add(pw1);
 		frame.add(id);
 		frame.add(pw);
 		frame.add(ok);
 		frame.add(sign);
 		frame.add(l);
+		frame.add(p);
+		frame.add(cb);
 
 		frame.setVisible(true);
 
@@ -72,13 +107,19 @@ public class Login extends WindowAdapter implements ActionListener {
 		System.exit(0);
 	}
 
+	ArrayList<LoginVo> list;
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals(ok.getLabel())) {
 			LoginDao dao = new LoginDao();
 			LoginVo v = new LoginVo(id.getText());
-			ArrayList<LoginVo> list = dao.adminLogin(v.getID(), v.getPW());
+			if (cb.getState()) {
+				list = dao.adminLogin(v.getID(), v.getPW());
+			} else {
+				list = dao.userLogin(v.getID(), v.getPW());
+			}
 
 			for (int i = 0; i < list.size(); i++) {
 				LoginVo data = (LoginVo) list.get(i);
@@ -87,17 +128,24 @@ public class Login extends WindowAdapter implements ActionListener {
 
 				if (userID.equals(id.getText().toUpperCase()) && userPW.equals(pw.getText())) {
 					frame.setVisible(false);
-					new MainScreen();
+					if (cb.getState()) {
+						new MainScreen();
+					} else {
+						new UserMainScreen(userID);
+					}
 					break;
 				} else {
-					Fonts f1 = new Fonts();
-					l.setFont(f1.getFont1());
+					l.setFont(font.getFont1());
 					l.setForeground(Color.RED);
 					l.setText("가입된 정보가 없습니다.");
 				}
 			}
 		} else if (e.getActionCommand().equals(sign.getLabel())) {
-			new SignUp();
+			if (cb.getState()) {
+				new SignUp();
+			} else {
+				new UserSignUp();
+			}
 		}
 	}
 }

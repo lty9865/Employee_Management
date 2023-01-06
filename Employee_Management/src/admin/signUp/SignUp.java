@@ -1,6 +1,7 @@
 package admin.signUp;
 
 import java.awt.Button;
+
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.FlowLayout;

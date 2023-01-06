@@ -101,7 +101,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		b3.setLocation(delB.getLocation().x, delB.getLocation().y + 90);
 
 		// 버튼(부서)
-		allBtn = new Button("새로고침");
+		allBtn = new Button("전체");
 		allBtn.setSize(80, 40);
 		allBtn.setLocation(560, 60);
 		allBtn.setBackground(Color.gray);
@@ -175,7 +175,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 
 			// 부서 버튼
 		} else if (e.getActionCommand().equals(allBtn.getLabel())) {
-			System.out.println("새로고침");
+			System.out.println("전체");
 			a1 = td.searchAll();
 			makeTable();
 		} else if (e.getActionCommand().equals(e1.getLabel())) {
