@@ -25,13 +25,13 @@ import common.signUpDao.InsertAccountDao;
 import font.Fonts;
 import user.dimension.UserDimension;
 
-public class SignUp extends WindowAdapter implements ActionListener, MouseListener, KeyListener {
+public class UserSignUp extends WindowAdapter implements ActionListener, MouseListener, KeyListener {
 	private Frame frame;
 	private TextField empNo, id, pw1, pw2;
 	private Button search, dupli, ok, cancel;
 	private Label l1, l2, l3;
 
-	public SignUp() {
+	public UserSignUp() {
 		UserDimension ud = new UserDimension();
 		frame = new Frame("Sign Up");
 		frame.setLayout(null);

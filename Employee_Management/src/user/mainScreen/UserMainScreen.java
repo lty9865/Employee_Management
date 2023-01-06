@@ -1,7 +1,6 @@
 package user.mainScreen;
 
 import java.awt.Button;
-
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.TextField;
@@ -11,11 +10,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 
+import admin.login.Login;
 import font.Fonts;
 import user.dimension.UserDimension;
-import user.login.Login;
 
-public class MainScreen extends WindowAdapter implements ActionListener {
+public class UserMainScreen extends WindowAdapter implements ActionListener {
 	private Frame frame;
 	private TextField[] t;
 	private Label[] l;
@@ -25,7 +24,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 	private String timeStart = format.format(System.currentTimeMillis());
 	private String name1;
 
-	public MainScreen(String userID) {
+	public UserMainScreen(String userID) {
 		UserDimension ud = new UserDimension();
 		frame = new Frame("System");
 		frame.setLayout(null);
@@ -107,7 +106,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals(b3.getLabel())) {
 			frame.dispose();
-			new Login().userLogin();
+			new Login();
 		}
 		if (e.getActionCommand().equals("출근")) {
 			t[0].setText(timeStart);
