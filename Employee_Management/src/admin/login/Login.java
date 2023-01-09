@@ -130,21 +130,25 @@ public class Login extends WindowAdapter implements ActionListener {
 					frame.setVisible(false);
 					if (cb.getState()) {
 						new MainScreen();
+						break;
 					} else {
 						new UserMainScreen(userID);
+						break;
 					}
-					break;
-				} else {
-					l.setFont(font.getFont1());
-					l.setForeground(Color.RED);
-					l.setText("가입된 정보가 없습니다.");
 				}
 			}
+			l.setFont(font.getFont1());
+			l.setForeground(Color.RED);
+			l.setText("가입된 정보가 없습니다.");
 		} else if (e.getActionCommand().equals(sign.getLabel())) {
 			if (cb.getState()) {
+				frame.setFocusable(false);
 				new SignUp();
+				frame.setFocusable(true);
 			} else {
+				frame.setFocusable(false);
 				new UserSignUp();
+				frame.setFocusable(true);
 			}
 		}
 	}

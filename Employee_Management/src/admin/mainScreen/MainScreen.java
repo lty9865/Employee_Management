@@ -3,6 +3,7 @@ package admin.mainScreen;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,13 +20,17 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import admin.delete.DeleteE;
+import admin.modify.EmpModify;
 import admin.register.Register;
+import common.openApi.OpenApiWeather;
+import common.openApi.WeatherVo;
 
 public class MainScreen extends WindowAdapter implements ActionListener {
 	private Frame frame2;
 	private TextField watch;
 	private Button addB, delB, b3;
 	private Button e1, e2, e3, e4, allBtn;
+	private Label title, temp, temp1, PTY, RN1;
 
 	// 테이블
 	private JTable table;
@@ -96,9 +101,10 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		delB.setLocation(addB.getLocation().x, addB.getLocation().y + 90);
 		delB.addActionListener(this);
 
-		b3 = new Button("button3");
+		b3 = new Button("사원 수정");
 		b3.setSize(addB.getSize());
 		b3.setLocation(delB.getLocation().x, delB.getLocation().y + 90);
+		b3.addActionListener(this);
 
 		// 버튼(부서)
 		allBtn = new Button("전체");
@@ -147,6 +153,55 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		sp.setLocation(30, 100);
 		frame2.add(sp);
 
+		// 날씨 가져오기
+		String strPTY = null;
+		WeatherVo weather = null;
+		try {
+			weather = new OpenApiWeather().weatherVo();
+			double intPTY = weather.getPTY();
+			if (intPTY == 0) {
+				strPTY = "강수없음";
+			} else if (intPTY <= 1) {
+				strPTY = "비";
+			} else if (intPTY <= 2) {
+				strPTY = "비/눈";
+			} else if (intPTY <= 3) {
+				strPTY = "눈";
+			} else if (intPTY <= 4) {
+				strPTY = "소나기";
+			} else if (intPTY <= 5) {
+				strPTY = "빗방울";
+			} else if (intPTY <= 6) {
+				strPTY = "빗방울눈날림";
+			} else if (intPTY <= 7) {
+				strPTY = "눈날림";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		title = new Label("현재 날씨");
+		title.setSize(195, 50);
+		title.setLocation(b3.getLocation().x, b3.getLocation().y + b3.getSize().height + 100);
+
+		temp1 = new Label("현재 기온");
+		temp1.setSize(title.getSize().width / 2, title.getSize().height);
+		temp1.setLocation(title.getLocation().x, title.getLocation().y + title.getSize().height + 30);
+
+		String strTemp = String.valueOf(weather.getT1H());
+		temp = new Label(strTemp);
+		temp.setSize(temp1.getSize());
+		temp.setLocation(temp1.getLocation().x + temp1.getSize().width, temp1.getLocation().y);
+
+		PTY = new Label(strPTY);
+		PTY.setSize(temp1.getSize());
+		PTY.setLocation(temp1.getLocation().x, temp1.getLocation().y + temp1.getSize().height + 30);
+
+		String strRN1 = String.valueOf(weather.getRN1()) + " mm";
+		RN1 = new Label(strRN1);
+		RN1.setSize(PTY.getSize());
+		RN1.setLocation(PTY.getLocation().x + PTY.getSize().width, PTY.getLocation().y);
+
 		frame2.addWindowListener(this);
 		frame2.add(watch);
 		frame2.add(addB);
@@ -157,6 +212,11 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		frame2.add(e2);
 		frame2.add(e3);
 		frame2.add(e4);
+		frame2.add(title);
+		frame2.add(temp);
+		frame2.add(temp1);
+		frame2.add(PTY);
+		frame2.add(RN1);
 
 		frame2.setVisible(true);
 	}
@@ -194,6 +254,10 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			System.out.println("영업");
 			allEmp = td.searchEmp(e4.getLabel().toString());
 			makeTableDept();
+		}
+
+		if (e.getActionCommand().equals(b3.getLabel())) {
+			new EmpModify();
 		}
 	}
 

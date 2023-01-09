@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import admin.login.Login;
 import font.Fonts;
@@ -20,11 +21,13 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 	private Label[] l;
 	private Label hi, name, mr;
 	private Button b1, b2, b3;
-	private SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+	private SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
 	private String timeStart = format.format(System.currentTimeMillis());
 	private String name1;
+	private String userID;
 
 	public UserMainScreen(String userID) {
+		this.userID = userID;
 		UserDimension ud = new UserDimension();
 		frame = new Frame("System");
 		frame.setLayout(null);
@@ -96,6 +99,25 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 		frame.add(b2);
 		frame.add(b3);
 		frame.setVisible(true);
+		try {
+			ArrayList<TimeVo> list;
+			InsertTimeDao dao = new InsertTimeDao();
+			list = dao.SearchWork(userID);
+			String sWork = list.get(0).getStart();
+			String eWork = list.get(0).getEnd();
+			boolean al = list.get(0).getAl();
+
+			if (al) {
+				t[0].setText(sWork);
+				if (eWork == null) {
+					b1.setLabel("퇴근");
+				} else {
+					t[1].setText(eWork);
+					b1.setEnabled(false);
+				}
+			}
+		} catch (IndexOutOfBoundsException e) {
+		}
 	}
 
 	public void windowClosing(WindowEvent e) {
@@ -110,11 +132,11 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 		}
 		if (e.getActionCommand().equals("출근")) {
 			t[0].setText(timeStart);
-			new InsertTimeDao(name1, b1.getLabel());
+			new InsertTimeDao(userID, b1.getLabel());
 			b1.setLabel("퇴근");
 		} else if (e.getActionCommand().equals("퇴근")) {
 			t[1].setText(timeStart);
-			new InsertTimeDao(name1, b1.getLabel());
+			new InsertTimeDao(userID, b1.getLabel());
 			b1.setEnabled(false);
 		}
 		if (e.getActionCommand().equals("연장신청")) {
