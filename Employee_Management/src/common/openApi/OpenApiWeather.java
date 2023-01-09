@@ -41,7 +41,7 @@ public class OpenApiWeather {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String strDate = sdf.format(date);
 
-		LocalTime now = LocalTime.now();
+		LocalTime now = LocalTime.now().minusHours(1);
 		DateTimeFormatter df = DateTimeFormatter.ofPattern("HH");
 		String strNow = now.format(df) + "30";
 		System.out.println(strNow);
@@ -50,7 +50,7 @@ public class OpenApiWeather {
 		String ny = "123";
 		String baseDate = strDate;
 		String baseTime = strNow;
-//		String baseTime = "0630";
+//		String baseTime = "2030";
 
 //    	String dataType = "JSON"; 
 

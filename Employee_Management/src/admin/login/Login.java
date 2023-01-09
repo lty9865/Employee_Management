@@ -33,6 +33,7 @@ public class Login extends WindowAdapter implements ActionListener {
 
 	Fonts font = new Fonts();
 	AdminDimension ad = new AdminDimension();
+	Color selectColor = new Color(0, 153, 255);
 
 	public Login() {
 		// 프레임 설정

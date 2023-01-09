@@ -24,6 +24,7 @@ import admin.modify.EmpModify;
 import admin.register.Register;
 import common.openApi.OpenApiWeather;
 import common.openApi.WeatherVo;
+import font.Fonts;
 
 public class MainScreen extends WindowAdapter implements ActionListener {
 	private Frame frame2;
@@ -73,6 +74,8 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		t1.start();
 	}
 
+	Color selectColor = new Color(0, 153, 255);
+
 	@SuppressWarnings("serial")
 	public MainScreen() {
 		// 프레임 설정
@@ -112,29 +115,30 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		allBtn.setLocation(560, 60);
 		allBtn.setBackground(Color.gray);
 		allBtn.addActionListener(this);
+		allBtn.setBackground(selectColor);
 
 		e1 = new Button("총무");
 		e1.setSize(allBtn.getSize());
 		e1.setLocation(allBtn.getLocation().x + allBtn.getSize().width, allBtn.getLocation().y);
-		e1.setBackground(Color.gray);
+		e1.setBackground(Color.white);
 		e1.addActionListener(this);
 
 		e2 = new Button("회계");
 		e2.setSize(allBtn.getSize());
 		e2.setLocation(e1.getLocation().x + allBtn.getSize().width, allBtn.getLocation().y);
-		e2.setBackground(Color.gray);
+		e2.setBackground(Color.white);
 		e2.addActionListener(this);
 
 		e3 = new Button("인사");
 		e3.setSize(allBtn.getSize());
 		e3.setLocation(e2.getLocation().x + allBtn.getSize().width, allBtn.getLocation().y);
-		e3.setBackground(Color.gray);
+		e3.setBackground(Color.white);
 		e3.addActionListener(this);
 
 		e4 = new Button("영업");
 		e4.setSize(allBtn.getSize());
 		e4.setLocation(e3.getLocation().x + allBtn.getSize().width, allBtn.getLocation().y);
-		e4.setBackground(Color.gray);
+		e4.setBackground(Color.white);
 		e4.addActionListener(this);
 
 		// 테이블 설정
@@ -188,10 +192,12 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		temp1.setSize(title.getSize().width / 2, title.getSize().height);
 		temp1.setLocation(title.getLocation().x, title.getLocation().y + title.getSize().height + 30);
 
+		Fonts font = new Fonts();
 		String strTemp = String.valueOf(weather.getT1H());
 		temp = new Label(strTemp);
 		temp.setSize(temp1.getSize());
 		temp.setLocation(temp1.getLocation().x + temp1.getSize().width, temp1.getLocation().y);
+		temp.setFont(font.getFont2());
 
 		PTY = new Label(strPTY);
 		PTY.setSize(temp1.getSize());
@@ -236,22 +242,47 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			// 부서 버튼
 		} else if (e.getActionCommand().equals(allBtn.getLabel())) {
 			System.out.println("전체");
+			allBtn.setBackground(selectColor);
+			e1.setBackground(Color.white);
+			e2.setBackground(Color.white);
+			e3.setBackground(Color.white);
+			e4.setBackground(Color.white);
 			a1 = td.searchAll();
 			makeTable();
 		} else if (e.getActionCommand().equals(e1.getLabel())) {
 			System.out.println("총무");
+			e1.setBackground(selectColor);
+			allBtn.setBackground(Color.white);
+			e2.setBackground(Color.white);
+			e3.setBackground(Color.white);
+			e4.setBackground(Color.white);
 			allEmp = td.searchEmp(e1.getLabel().toString());
 			makeTableDept();
 		} else if (e.getActionCommand().equals(e2.getLabel())) {
 			System.out.println("회계");
+			e2.setBackground(selectColor);
+			e1.setBackground(Color.white);
+			allBtn.setBackground(Color.white);
+			e3.setBackground(Color.white);
+			e4.setBackground(Color.white);
 			allEmp = td.searchEmp(e2.getLabel().toString());
 			makeTableDept();
 		} else if (e.getActionCommand().equals(e3.getLabel())) {
 			System.out.println("인사");
+			e3.setBackground(selectColor);
+			e1.setBackground(Color.white);
+			e2.setBackground(Color.white);
+			allBtn.setBackground(Color.white);
+			e4.setBackground(Color.white);
 			allEmp = td.searchEmp(e3.getLabel().toString());
 			makeTableDept();
 		} else if (e.getActionCommand().equals(e4.getLabel())) {
 			System.out.println("영업");
+			e4.setBackground(selectColor);
+			e1.setBackground(Color.white);
+			e2.setBackground(Color.white);
+			e3.setBackground(Color.white);
+			allBtn.setBackground(Color.white);
 			allEmp = td.searchEmp(e4.getLabel().toString());
 			makeTableDept();
 		}
