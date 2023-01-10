@@ -20,14 +20,14 @@ public class SearchEmpDao {
 					+ "WHERE E.DEPT_ID = D.DEPT_ID " + "AND e.EMP_NO LIKE " + deptNum;
 			rs = cn.getStmt().executeQuery(query);
 
-			rs.next();
-
-			searchDel = new String[5];
-			searchDel[0] = rs.getString("DEPT_NAME");
-			searchDel[1] = rs.getString("NAME");
-			searchDel[2] = rs.getString("POS");
-			searchDel[3] = rs.getString("BIRTH");
-			searchDel[4] = rs.getString("MOBILE");
+			if (rs.next()) {
+				searchDel = new String[5];
+				searchDel[0] = rs.getString("DEPT_NAME");
+				searchDel[1] = rs.getString("NAME");
+				searchDel[2] = rs.getString("POS");
+				searchDel[3] = rs.getString("BIRTH");
+				searchDel[4] = rs.getString("MOBILE");
+			}
 
 			cn.getStmt().close();
 			cn.getCon().close();

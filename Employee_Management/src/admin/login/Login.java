@@ -3,15 +3,19 @@ package admin.login;
 import java.awt.Button;
 import java.awt.Checkbox;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.Label;
-import java.awt.Panel;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 import admin.demension.AdminDimension;
 import admin.mainScreen.MainScreen;
@@ -22,13 +26,21 @@ import font.Fonts;
 import user.mainScreen.UserMainScreen;
 import user.signup.UserSignUp;
 
+class ImagePanel extends JPanel {
+	public void paintComponent(Graphics g) {
+		Dimension d = getSize();
+		ImageIcon image = new ImageIcon("./image/Company.jpg");
+		g.drawImage(image.getImage(), 0, 0, d.width, d.height, null);
+	}
+}
+
 public class Login extends WindowAdapter implements ActionListener {
 	private Frame frame;
 	private TextField id, pw;
 	private Button ok, sign;
 	private Label l, id1, pw1;
 //	private Label title1, title2, title3;
-	private Panel p;
+	private ImagePanel p;
 	private Checkbox cb;
 
 	Fonts font = new Fonts();
@@ -78,10 +90,10 @@ public class Login extends WindowAdapter implements ActionListener {
 		l.setLocation(pw.getLocation().x, pw.getLocation().y + pw.getSize().height);
 
 		// 패널
-		p = new Panel();
-		p.setSize(frame.getSize().width - (id.getLocation().x + id.getSize().width) + 10, frame.getSize().height);
-		p.setLocation(id.getLocation().x + id.getSize().width + 15, 0);
-		p.setBackground(Color.gray);
+		p = new ImagePanel();
+		p.setBounds(id.getLocation().x + id.getSize().width + 15, 0,
+				frame.getSize().width - (id.getLocation().x + id.getSize().width) + 10, frame.getSize().height);
+		p.setLayout(null);
 
 		// 체크박스
 		cb = new Checkbox("관리자");

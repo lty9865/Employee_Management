@@ -20,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import admin.delete.DeleteE;
+import admin.login.Login;
 import admin.modify.EmpModify;
 import admin.register.Register;
 import common.openApi.OpenApiWeather;
@@ -29,8 +30,8 @@ import font.Fonts;
 public class MainScreen extends WindowAdapter implements ActionListener {
 	private Frame frame2;
 	private TextField watch;
-	private Button addB, delB, b3;
-	private Button e1, e2, e3, e4, allBtn;
+	private Button addB, delB, b3, allBtn, logOut;
+	private Button e1, e2, e3, e4;
 	private Label title, temp, temp1, PTY, RN1;
 
 	// 테이블
@@ -76,7 +77,6 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 
 	Color selectColor = new Color(0, 153, 255);
 
-	@SuppressWarnings("serial")
 	public MainScreen() {
 		// 프레임 설정
 		frame2 = new Frame("Employee Management");
@@ -108,6 +108,11 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		b3.setSize(addB.getSize());
 		b3.setLocation(delB.getLocation().x, delB.getLocation().y + 90);
 		b3.addActionListener(this);
+
+		logOut = new Button("로그아웃");
+		logOut.setSize(100, watch.getSize().height);
+		logOut.setLocation(watch.getLocation().x + watch.getSize().width, watch.getLocation().y);
+		logOut.addActionListener(this);
 
 		// 버튼(부서)
 		allBtn = new Button("전체");
@@ -142,11 +147,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		e4.addActionListener(this);
 
 		// 테이블 설정
-		model = new DefaultTableModel(header, 0) {
-			public boolean isCellEditable(int i, int c) {
-				return false;
-			}
-		};
+		model = new DefaultTableModel(header, 0);
 		table = new JTable(model);
 		table.setRowHeight(30);
 		sp = new JScrollPane(table);
@@ -223,6 +224,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		frame2.add(temp1);
 		frame2.add(PTY);
 		frame2.add(RN1);
+		frame2.add(logOut);
 
 		frame2.setVisible(true);
 	}
@@ -234,13 +236,13 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getActionCommand().equals(addB.getLabel())) {
+		if (e.getActionCommand().equals(addB.getActionCommand())) {
 			new Register();
-		} else if (e.getActionCommand().equals(delB.getLabel())) {
+		} else if (e.getActionCommand().equals(delB.getActionCommand())) {
 			new DeleteE();
 
 			// 부서 버튼
-		} else if (e.getActionCommand().equals(allBtn.getLabel())) {
+		} else if (e.getActionCommand().equals(allBtn.getActionCommand())) {
 			System.out.println("전체");
 			allBtn.setBackground(selectColor);
 			e1.setBackground(Color.white);
@@ -249,7 +251,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			e4.setBackground(Color.white);
 			a1 = td.searchAll();
 			makeTable();
-		} else if (e.getActionCommand().equals(e1.getLabel())) {
+		} else if (e.getActionCommand().equals(e1.getActionCommand())) {
 			System.out.println("총무");
 			e1.setBackground(selectColor);
 			allBtn.setBackground(Color.white);
@@ -258,7 +260,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			e4.setBackground(Color.white);
 			allEmp = td.searchEmp(e1.getLabel().toString());
 			makeTableDept();
-		} else if (e.getActionCommand().equals(e2.getLabel())) {
+		} else if (e.getActionCommand().equals(e2.getActionCommand())) {
 			System.out.println("회계");
 			e2.setBackground(selectColor);
 			e1.setBackground(Color.white);
@@ -267,7 +269,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			e4.setBackground(Color.white);
 			allEmp = td.searchEmp(e2.getLabel().toString());
 			makeTableDept();
-		} else if (e.getActionCommand().equals(e3.getLabel())) {
+		} else if (e.getActionCommand().equals(e3.getActionCommand())) {
 			System.out.println("인사");
 			e3.setBackground(selectColor);
 			e1.setBackground(Color.white);
@@ -276,7 +278,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			e4.setBackground(Color.white);
 			allEmp = td.searchEmp(e3.getLabel().toString());
 			makeTableDept();
-		} else if (e.getActionCommand().equals(e4.getLabel())) {
+		} else if (e.getActionCommand().equals(e4.getActionCommand())) {
 			System.out.println("영업");
 			e4.setBackground(selectColor);
 			e1.setBackground(Color.white);
@@ -287,8 +289,13 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			makeTableDept();
 		}
 
-		if (e.getActionCommand().equals(b3.getLabel())) {
+		if (e.getActionCommand().equals(b3.getActionCommand())) {
 			new EmpModify();
+		}
+
+		if (e.getActionCommand().equals(logOut.getActionCommand())) {
+			frame2.dispose();
+			new Login();
 		}
 	}
 

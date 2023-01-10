@@ -97,8 +97,10 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 			System.out.println("search");
 			SearchEmpDao sd = new SearchEmpDao();
 			String[] strArr = sd.searchDel(deptNum);
-			for (int i = 0; i < strArr.length; i++) {
-				t[i].setText(strArr[i]);
+			if (strArr != null) {
+				for (int i = 0; i < strArr.length; i++) {
+					t[i].setText(strArr[i]);
+				}
 			}
 		} else if (e.getActionCommand().equals(ok.getLabel())) {
 			System.out.println("Delete");

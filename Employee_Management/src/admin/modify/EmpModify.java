@@ -11,12 +11,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import admin.delete.DeleteDao;
 import common.searchEmp.SearchEmpDao;
 
 public class EmpModify extends WindowAdapter implements MouseListener, ActionListener, KeyListener {
-	private Frame frameDel;
+	private Frame frame;
 	private Button search, ok, cancel;
 	private TextField depID;
 	private TextField[] t;
@@ -25,10 +26,10 @@ public class EmpModify extends WindowAdapter implements MouseListener, ActionLis
 
 	public EmpModify() {
 		// 프레임
-		frameDel = new Frame("Employee Modify");
-		frameDel.setLayout(null);
-		frameDel.setSize(300, 450);
-		frameDel.setLocationRelativeTo(null);
+		frame = new Frame("Employee Modify");
+		frame.setLayout(null);
+		frame.setSize(300, 450);
+		frame.setLocationRelativeTo(null);
 
 		// 텍스트필드(사번)
 		depID = new TextField("사원번호를 입력하세요.");
@@ -45,7 +46,7 @@ public class EmpModify extends WindowAdapter implements MouseListener, ActionLis
 			l[i].setSize(70, 30);
 			l[i].setLocation(30, height);
 			height = height + 50;
-			frameDel.add(l[i]);
+			frame.add(l[i]);
 		}
 
 		// 텍스트필드
@@ -54,7 +55,7 @@ public class EmpModify extends WindowAdapter implements MouseListener, ActionLis
 			t[i] = new TextField();
 			t[i].setSize(170, 30);
 			t[i].setLocation(100, l[i].getLocation().y);
-			frameDel.add(t[i]);
+			frame.add(t[i]);
 			t[i].setEditable(false);
 			t[i].setFocusable(false);
 		}
@@ -78,13 +79,17 @@ public class EmpModify extends WindowAdapter implements MouseListener, ActionLis
 				ok.getLocation().y);
 		cancel.addActionListener(this);
 
-		frameDel.addWindowListener(this);
-		frameDel.add(ok);
-		frameDel.add(depID);
-		frameDel.add(search);
-		frameDel.add(cancel);
+		frame.addWindowListener(this);
+		frame.add(ok);
+		frame.add(depID);
+		frame.add(search);
+		frame.add(cancel);
 
-		frameDel.setVisible(true);
+		frame.setVisible(true);
+	}
+
+	public void windowClosing(WindowEvent e) {
+		frame.dispose();
 	}
 
 	@Override
@@ -129,20 +134,22 @@ public class EmpModify extends WindowAdapter implements MouseListener, ActionLis
 			System.out.println("search");
 			SearchEmpDao sd = new SearchEmpDao();
 			String[] strArr = sd.searchDel(deptNum);
-			for (int i = 0; i < strArr.length; i++) {
-				t[i].setText(strArr[i]);
-				t[i].setEditable(true);
-				t[i].setFocusable(true);
+			if (strArr != null) {
+				for (int i = 0; i < strArr.length; i++) {
+					t[i].setText(strArr[i]);
+					t[i].setEditable(true);
+					t[i].setFocusable(true);
+				}
+				t[0].setEditable(false);
+				t[0].setFocusable(false);
 			}
-			t[0].setEditable(false);
-			t[0].setFocusable(false);
 		} else if (e.getActionCommand().equals(ok.getLabel())) {
 			System.out.println("Modify");
 			DeleteDao dao = new DeleteDao();
 			dao.ModifyDao(t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), depID.getText());
-			frameDel.dispose();
+			frame.dispose();
 		} else if (e.getActionCommand().equals(cancel.getLabel())) {
-			frameDel.dispose();
+			frame.dispose();
 		}
 	}
 
