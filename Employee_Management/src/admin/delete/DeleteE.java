@@ -24,7 +24,7 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 
 	public DeleteE() {
 		// 프레임
-		frameDel = new Frame("Employee registration");
+		frameDel = new Frame("사원 삭제");
 		frameDel.setLayout(null);
 		frameDel.setSize(300, 450);
 		frameDel.setLocationRelativeTo(null);

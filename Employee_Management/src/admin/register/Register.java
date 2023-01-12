@@ -23,7 +23,7 @@ public class Register extends WindowAdapter implements ActionListener, KeyListen
 
 	public Register() {
 		// 프레임
-		frameRes = new Frame("Employee registration");
+		frameRes = new Frame("사원 추가");
 		frameRes.setLayout(null);
 		frameRes.setSize(320, 450);
 		frameRes.setLocationRelativeTo(null);

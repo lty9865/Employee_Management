@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import admin.delete.DeleteE;
 import admin.login.Login;
 import admin.modify.EmpModify;
+import admin.notice.NoticeFrame;
 import admin.register.Register;
 import common.openApi.OpenApiWeather;
 import common.openApi.WeatherVo;
@@ -30,7 +31,7 @@ import font.Fonts;
 public class MainScreen extends WindowAdapter implements ActionListener {
 	private Frame frame2;
 	private TextField watch;
-	private Button addB, delB, b3, allBtn, logOut;
+	private Button addB, delB, b3, allBtn, logOut, sugg;
 	private Button e1, e2, e3, e4;
 	private Label title, temp, temp1, PTY, RN1;
 
@@ -77,6 +78,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 
 	Color selectColor = new Color(0, 153, 255);
 
+	@SuppressWarnings("serial")
 	public MainScreen() {
 		// 프레임 설정
 		frame2 = new Frame("Employee Management");
@@ -93,7 +95,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		watch.setEditable(false);
 		ThreadTime();
 
-		// 버튼(등록, 삭제, ?_미정)
+		// 버튼(등록, 삭제, 수정)
 		addB = new Button("사원 등록");
 		addB.setSize(195, 80);
 		addB.setLocation(975, 100);
@@ -113,6 +115,11 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		logOut.setSize(100, watch.getSize().height);
 		logOut.setLocation(watch.getLocation().x + watch.getSize().width, watch.getLocation().y);
 		logOut.addActionListener(this);
+
+		sugg = new Button("건의사항");
+		sugg.setSize(addB.getSize());
+		sugg.setLocation(b3.getLocation().x, b3.getLocation().y + 90);
+		sugg.addActionListener(this);
 
 		// 버튼(부서)
 		allBtn = new Button("전체");
@@ -147,7 +154,11 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		e4.addActionListener(this);
 
 		// 테이블 설정
-		model = new DefaultTableModel(header, 0);
+		model = new DefaultTableModel(header, 0) {
+			public boolean isCellEditable(int rowIndex, int mColIndex) {
+				return false;
+			}
+		};
 		table = new JTable(model);
 		table.setRowHeight(30);
 		sp = new JScrollPane(table);
@@ -187,7 +198,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 
 		title = new Label("현재 날씨");
 		title.setSize(195, 50);
-		title.setLocation(b3.getLocation().x, b3.getLocation().y + b3.getSize().height + 100);
+		title.setLocation(b3.getLocation().x, b3.getLocation().y + b3.getSize().height + 180);
 
 		temp1 = new Label("현재 기온");
 		temp1.setSize(title.getSize().width / 2, title.getSize().height);
@@ -225,6 +236,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		frame2.add(PTY);
 		frame2.add(RN1);
 		frame2.add(logOut);
+		frame2.add(sugg);
 
 		frame2.setVisible(true);
 	}
@@ -296,6 +308,11 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		if (e.getActionCommand().equals(logOut.getActionCommand())) {
 			frame2.dispose();
 			new Login();
+		}
+
+		if (e.getActionCommand().equals(sugg.getActionCommand())) {
+			new NoticeFrame();
+			
 		}
 	}
 

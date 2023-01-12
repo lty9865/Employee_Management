@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import admin.login.Login;
 import font.Fonts;
 import user.dimension.UserDimension;
+import user.notice.NoticeFrame;
 
 public class UserMainScreen extends WindowAdapter implements ActionListener {
 	private Frame frame;
@@ -31,7 +32,7 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 		UserDimension ud = new UserDimension();
 		frame = new Frame("System");
 		frame.setLayout(null);
-		frame.setSize(ud.getWidth(), ud.getHeight());
+		frame.setSize(ud.getWidth(), ud.getHeight() - 90);
 		frame.setLocationRelativeTo(null);
 		frame.addWindowListener(this);
 
@@ -53,9 +54,9 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 		mr.setLocation(name.getLocation().x + name.getSize().width,
 				name.getLocation().y + name.getSize().height - mr.getSize().height);
 
-		l = new Label[4];
-		t = new TextField[4];
-		String[] arrName = { "출근", "퇴근", "시작", "종료" };
+		l = new Label[2];
+		t = new TextField[2];
+		String[] arrName = { "출근", "퇴근" };
 		for (int i = 0; i < l.length; i++) {
 			l[i] = new Label(arrName[i]);
 			l[i].setSize(100, 40);
@@ -73,13 +74,10 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 		b1.setLocation(l[1].getLocation().x, l[1].getLocation().y + l[1].getSize().height + 5);
 		b1.addActionListener(this);
 
-		b2 = new Button("연장신청");
+		b2 = new Button("건의사항");
 		b2.setSize(b1.getSize());
 		b2.setLocation(b1.getLocation().x, b1.getLocation().y + b1.getSize().height + 5);
 		b2.addActionListener(this);
-
-		l[2].setLocation(b2.getLocation().x, b2.getLocation().y + b2.getSize().height + 5);
-		l[3].setLocation(l[2].getLocation().x, l[2].getLocation().y + l[2].getSize().height + 5);
 
 		for (int i = 0; i < arrName.length; i++) {
 			t[i].setLocation(l[i].getLocation().x + l[i].getSize().width, l[i].getLocation().y);
@@ -139,12 +137,9 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 			new InsertTimeDao(userID, b1.getLabel());
 			b1.setEnabled(false);
 		}
-		if (e.getActionCommand().equals("연장신청")) {
-			t[2].setText("18:30");
-			b2.setLabel("종료");
-		} else if (e.getActionCommand().equals("종료")) {
-			t[3].setText(timeStart);
-			b2.setLabel("연장신청");
+		if (e.getActionCommand().equals("건의사항")) {
+			System.out.println("건의사항");
+			new NoticeFrame(userID);
 		}
 	}
 }

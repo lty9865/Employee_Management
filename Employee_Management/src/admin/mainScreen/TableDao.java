@@ -66,4 +66,71 @@ public class TableDao {
 		}
 		return list;
 	}
+
+	public ArrayList<TableVo> searchSugg() {
+		ArrayList<TableVo> list = new ArrayList<TableVo>();
+		try {
+			ConnectDB cn = new ConnectDB();
+
+			query = "SELECT * FROM DEPARTMENT d, SUGGESTIONS s WHERE d.DEPT_ID = s.DEPT_ID";
+			rs = cn.getStmt().executeQuery(query);
+
+			while (rs.next()) {
+				String sugTitle = rs.getString("SUGTITLE");
+				String deptName = rs.getString("DEPT_NAME");
+				String writeDay = rs.getString("WRITEDAY");
+				String stat = rs.getString("STAT");
+				String sugNum = rs.getString("SUGNUM");
+
+				TableVo data = new TableVo(sugTitle, deptName, writeDay, stat, sugNum);
+				list.add(data);
+			}
+			cn.getStmt().close();
+			cn.getCon().close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<TableVo> searchSugg(int row) {
+		ArrayList<TableVo> list = new ArrayList<TableVo>();
+		try {
+			ConnectDB cn = new ConnectDB();
+
+			query = "SELECT SUGTITLE, SUGTEXT, SUGNUM FROM SUGGESTIONS s ";
+			rs = cn.getStmt().executeQuery(query);
+			int count = 0;
+			while (rs.next()) {
+				if (row == count) {
+					String sugTitle = rs.getString("SUGTITLE");
+					String sugText = rs.getString("SUGTEXT");
+					String sugNum = rs.getString("SUGNUM");
+					TableVo data = new TableVo(sugTitle, sugText, sugNum);
+					list.add(data);
+					break;
+				}
+				count++;
+			}
+			cn.getStmt().close();
+			cn.getCon().close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public void updateResult(String sugNum) {
+		try {
+			ConnectDB cn = new ConnectDB();
+
+			query = "UPDATE SUGGESTIONS SET STAT = '처리완료' WHERE SUGNUM = '" + sugNum + "'";
+			cn.getStmt().executeUpdate(query);
+
+			cn.getStmt().close();
+			cn.getCon().close();
+		} catch (Exception e) {
+
+		}
+	}
 }

@@ -26,6 +26,7 @@ import font.Fonts;
 import user.mainScreen.UserMainScreen;
 import user.signup.UserSignUp;
 
+@SuppressWarnings("serial")
 class ImagePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		Dimension d = getSize();

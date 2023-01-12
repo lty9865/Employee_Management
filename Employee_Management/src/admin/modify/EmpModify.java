@@ -26,7 +26,7 @@ public class EmpModify extends WindowAdapter implements MouseListener, ActionLis
 
 	public EmpModify() {
 		// 프레임
-		frame = new Frame("Employee Modify");
+		frame = new Frame("사원 수정");
 		frame.setLayout(null);
 		frame.setSize(300, 450);
 		frame.setLocationRelativeTo(null);

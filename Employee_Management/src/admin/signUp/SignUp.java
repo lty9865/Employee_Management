@@ -3,8 +3,6 @@ package admin.signUp;
 import java.awt.Button;
 
 import java.awt.Color;
-import java.awt.Dialog;
-import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.TextField;
@@ -13,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import common.checkpassword.CheckPassword;
 import common.loginDao.LoginVo;
@@ -23,11 +22,9 @@ import font.Fonts;
 public class SignUp extends WindowAdapter implements ActionListener {
 	private Frame frame;
 	private TextField id, pw;
-	private Label l1, l2, dup;
+	private Label l1, l2, dup, check;
 	private Label c1, c2, c3;
-	private Label w;
-	private Button ok, same, ok2;
-	private Dialog info;
+	private Button ok, same;
 
 	public SignUp() {
 		// 프레임 설정
@@ -52,11 +49,17 @@ public class SignUp extends WindowAdapter implements ActionListener {
 		pw = new TextField();
 		pw.setSize(id.getSize());
 		pw.setLocation(id.getLocation().x, l2.getLocation().y);
+		pw.setEchoChar('*');
 
 		dup = new Label();
 		dup.setSize(300, id.getSize().height);
 		dup.setLocation(id.getLocation().x, id.getLocation().y + 30);
 		dup.setFocusable(false);
+
+		check = new Label();
+		check.setSize(dup.getSize());
+		check.setLocation(pw.getLocation().x, pw.getLocation().y + 30);
+		check.setFocusable(false);
 
 		// 버튼 설정
 		ok = new Button("OK");
@@ -91,23 +94,9 @@ public class SignUp extends WindowAdapter implements ActionListener {
 		frame.add(c3);
 		frame.add(same);
 		frame.add(dup);
+		frame.add(check);
 
 		frame.setVisible(true);
-	}
-
-	public void insertD() {
-		info = new Dialog(frame, "Information", true);
-		info.setSize(200, 100);
-		info.setLocationRelativeTo(frame);
-		info.setLayout(new FlowLayout());
-
-		w = new Label("wrong input", Label.CENTER);
-		ok2 = new Button("Again");
-		info.add(w);
-		info.add(ok2);
-		ok2.addActionListener(this);
-
-		info.setVisible(true);
 	}
 
 	public void windowClosing(WindowEvent e) {
@@ -123,13 +112,17 @@ public class SignUp extends WindowAdapter implements ActionListener {
 			LoginVo v = new LoginVo(id.getText());
 			ArrayList<LoginVo> list = dao.dupCheck(v.getID());
 			Fonts f1 = new Fonts();
+			boolean b2 = id.getText().length() >= 5;
+			dup.setFont(f1.getFont1());
 
 			for (int i = 0; i < list.size(); i++) {
 				LoginVo data = (LoginVo) list.get(i);
 				String userID = data.getID();
-
-				dup.setFont(f1.getFont1());
-				if (userID.equals(id.getText().toUpperCase())) {
+				boolean b1 = Pattern.matches("^[a-zA-Z0-9]*$", id.getText());
+				if (b2 == false) {
+					dup.setForeground(Color.red);
+					dup.setText("5자 이상 입력하세요.");
+				} else if (userID.equals(id.getText().toUpperCase()) || b1 == false) {
 					dup.setForeground(Color.red);
 					dup.setText("사용할 수 없는 아이디 입니다.");
 					break;
@@ -138,7 +131,8 @@ public class SignUp extends WindowAdapter implements ActionListener {
 					dup.setText("사용할 수 있는 아이디 입니다.");
 				}
 			}
-		} else if (e.getActionCommand().equals(ok.getLabel())) {
+		}
+		if (e.getActionCommand().equals(ok.getLabel())) {
 			CheckPassword ch = new CheckPassword();
 			if (id.getText().isEmpty() && pw.getText().isEmpty()) {
 				dup.setText(null);
@@ -148,10 +142,9 @@ public class SignUp extends WindowAdapter implements ActionListener {
 				dao.insert(v.getID(), v.getPW());
 				frame.dispose();
 			} else {
-				insertD();
+				check.setForeground(Color.red);
+				check.setText("사용할 수 없는 비밀번호입니다.");
 			}
-		} else if (e.getActionCommand().equals(ok2.getLabel())) {
-			info.dispose();
 		}
 	}
 }
