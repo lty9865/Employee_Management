@@ -1,6 +1,5 @@
 package user.notice;
 
-import java.awt.Button;
 import java.awt.Checkbox;
 import java.awt.Frame;
 import java.awt.TextArea;
@@ -12,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import font.RoundedButton;
 import user.mainScreen.SearchNameDao;
 
 public class NoticeFrame extends WindowAdapter implements ActionListener, MouseListener {
@@ -19,7 +19,7 @@ public class NoticeFrame extends WindowAdapter implements ActionListener, MouseL
 	private TextField title;
 	private TextArea area;
 	private Checkbox part;
-	private Button ok, cancel;
+	private RoundedButton ok, cancel;
 
 	private String userID;
 
@@ -52,14 +52,14 @@ public class NoticeFrame extends WindowAdapter implements ActionListener, MouseL
 		area.setLocation(title.getLocation().x, title.getLocation().y + title.getSize().height + 10);
 		frame.add(area);
 
-		ok = new Button("확인");
+		ok = new RoundedButton("확인");
 		ok.setSize(60, 35);
 		ok.setLocation(frame.getSize().width / 2 - ok.getSize().width - 10,
 				area.getLocation().y + area.getSize().height + 10);
 		frame.add(ok);
 		ok.addActionListener(this);
 
-		cancel = new Button("취소");
+		cancel = new RoundedButton("취소");
 		cancel.setSize(ok.getSize());
 		cancel.setLocation(frame.getSize().width / 2 + 10, ok.getLocation().y);
 		frame.add(cancel);

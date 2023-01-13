@@ -1,6 +1,5 @@
 package admin.login;
 
-import java.awt.Button;
 import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,6 +22,7 @@ import admin.signUp.SignUp;
 import common.loginDao.LoginDao;
 import common.loginDao.LoginVo;
 import font.Fonts;
+import font.RoundedButton;
 import user.mainScreen.UserMainScreen;
 import user.signup.UserSignUp;
 
@@ -38,7 +38,7 @@ class ImagePanel extends JPanel {
 public class Login extends WindowAdapter implements ActionListener {
 	private Frame frame;
 	private TextField id, pw;
-	private Button ok, sign;
+	private RoundedButton ok, sign;
 	private Label l, id1, pw1;
 //	private Label title1, title2, title3;
 	private ImagePanel p;
@@ -75,12 +75,12 @@ public class Login extends WindowAdapter implements ActionListener {
 		pw.setEchoChar('*');
 
 		// 버튼 설정
-		ok = new Button("로그인");
+		ok = new RoundedButton("로그인");
 		ok.setSize(id.getSize());
 		ok.setLocation(pw.getLocation().x, pw.getLocation().y + 90);
 		ok.addActionListener(this);
 
-		sign = new Button("회원가입");
+		sign = new RoundedButton("회원가입");
 		sign.setSize(ok.getSize());
 		sign.setLocation(ok.getLocation().x, ok.getLocation().y + ok.getSize().height + 10);
 		sign.addActionListener(this);
@@ -126,7 +126,7 @@ public class Login extends WindowAdapter implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getActionCommand().equals(ok.getLabel())) {
+		if (e.getActionCommand().equals(ok.getActionCommand())) {
 			LoginDao dao = new LoginDao();
 			LoginVo v = new LoginVo(id.getText());
 			if (cb.getState()) {
@@ -154,7 +154,7 @@ public class Login extends WindowAdapter implements ActionListener {
 			l.setFont(font.getFont1());
 			l.setForeground(Color.RED);
 			l.setText("가입된 정보가 없습니다.");
-		} else if (e.getActionCommand().equals(sign.getLabel())) {
+		} else if (e.getActionCommand().equals(sign.getActionCommand())) {
 			if (cb.getState()) {
 				frame.setFocusable(false);
 				new SignUp();

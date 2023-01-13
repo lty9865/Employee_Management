@@ -72,7 +72,7 @@ public class TableDao {
 		try {
 			ConnectDB cn = new ConnectDB();
 
-			query = "SELECT * FROM DEPARTMENT d, SUGGESTIONS s WHERE d.DEPT_ID = s.DEPT_ID";
+			query = "SELECT * FROM DEPARTMENT d, SUGGESTIONS s WHERE d.DEPT_ID = s.DEPT_ID ORDER BY WRITEDAY DESC";
 			rs = cn.getStmt().executeQuery(query);
 
 			while (rs.next()) {
@@ -98,7 +98,7 @@ public class TableDao {
 		try {
 			ConnectDB cn = new ConnectDB();
 
-			query = "SELECT SUGTITLE, SUGTEXT, SUGNUM FROM SUGGESTIONS s ";
+			query = "SELECT * FROM DEPARTMENT d, SUGGESTIONS s WHERE d.DEPT_ID = s.DEPT_ID ORDER BY WRITEDAY DESC";
 			rs = cn.getStmt().executeQuery(query);
 			int count = 0;
 			while (rs.next()) {
@@ -106,7 +106,8 @@ public class TableDao {
 					String sugTitle = rs.getString("SUGTITLE");
 					String sugText = rs.getString("SUGTEXT");
 					String sugNum = rs.getString("SUGNUM");
-					TableVo data = new TableVo(sugTitle, sugText, sugNum);
+					String stat = rs.getString("STAT");
+					TableVo data = new TableVo(sugTitle, sugText, sugNum, stat);
 					list.add(data);
 					break;
 				}

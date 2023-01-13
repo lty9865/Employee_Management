@@ -1,6 +1,5 @@
 package user.mainScreen;
 
-import java.awt.Button;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.TextField;
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 
 import admin.login.Login;
 import font.Fonts;
+import font.RoundedButton;
 import user.dimension.UserDimension;
 import user.notice.NoticeFrame;
 
@@ -21,12 +21,13 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 	private TextField[] t;
 	private Label[] l;
 	private Label hi, name, mr;
-	private Button b1, b2, b3;
+	private RoundedButton b1, b2, b3;
 	private SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
 	private String timeStart = format.format(System.currentTimeMillis());
 	private String name1;
 	private String userID;
 
+	@SuppressWarnings("deprecation")
 	public UserMainScreen(String userID) {
 		this.userID = userID;
 		UserDimension ud = new UserDimension();
@@ -69,12 +70,12 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 		l[0].setLocation(name.getLocation().x, name.getLocation().y + name.getSize().height + 5);
 		l[1].setLocation(l[0].getLocation().x, l[0].getLocation().y + l[0].getSize().height + 5);
 
-		b1 = new Button("출근");
+		b1 = new RoundedButton("출근");
 		b1.setSize(260, 50);
 		b1.setLocation(l[1].getLocation().x, l[1].getLocation().y + l[1].getSize().height + 5);
 		b1.addActionListener(this);
 
-		b2 = new Button("건의사항");
+		b2 = new RoundedButton("건의사항");
 		b2.setSize(b1.getSize());
 		b2.setLocation(b1.getLocation().x, b1.getLocation().y + b1.getSize().height + 5);
 		b2.addActionListener(this);
@@ -85,7 +86,7 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 			frame.add(t[i]);
 		}
 
-		b3 = new Button("로그아웃");
+		b3 = new RoundedButton("로그아웃");
 		b3.setSize(60, 20);
 		b3.setLocation((frame.getSize().width - 20) - b3.getSize().width, hi.getLocation().y);
 		b3.addActionListener(this);
@@ -122,19 +123,20 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 		System.exit(0);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals(b3.getLabel())) {
+		if (e.getActionCommand().equals(b3.getActionCommand())) {
 			frame.dispose();
 			new Login();
 		}
 		if (e.getActionCommand().equals("출근")) {
 			t[0].setText(timeStart);
-			new InsertTimeDao(userID, b1.getLabel());
+			new InsertTimeDao(userID, b1.getActionCommand());
 			b1.setLabel("퇴근");
 		} else if (e.getActionCommand().equals("퇴근")) {
 			t[1].setText(timeStart);
-			new InsertTimeDao(userID, b1.getLabel());
+			new InsertTimeDao(userID, b1.getActionCommand());
 			b1.setEnabled(false);
 		}
 		if (e.getActionCommand().equals("건의사항")) {

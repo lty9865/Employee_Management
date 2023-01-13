@@ -1,7 +1,5 @@
 package admin.signUp;
 
-import java.awt.Button;
-
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Label;
@@ -18,13 +16,14 @@ import common.loginDao.LoginVo;
 import common.signUpDao.DupCheckDao;
 import common.signUpDao.InsertAccountDao;
 import font.Fonts;
+import font.RoundedButton;
 
 public class SignUp extends WindowAdapter implements ActionListener {
 	private Frame frame;
 	private TextField id, pw;
 	private Label l1, l2, dup, check;
 	private Label c1, c2, c3;
-	private Button ok, same;
+	private RoundedButton ok, same;
 
 	public SignUp() {
 		// 프레임 설정
@@ -62,12 +61,12 @@ public class SignUp extends WindowAdapter implements ActionListener {
 		check.setFocusable(false);
 
 		// 버튼 설정
-		ok = new Button("OK");
+		ok = new RoundedButton("OK");
 		ok.setSize(100, 50);
 		ok.setLocation((frame.getSize().width / 2) - (ok.getSize().width / 2), pw.getLocation().y + 80);
 		ok.addActionListener(this);
 
-		same = new Button("중복확인");
+		same = new RoundedButton("중복확인");
 		same.setSize(80, 40);
 		same.setLocation(id.getLocation().x + 250, id.getLocation().y);
 		same.addActionListener(this);
@@ -107,7 +106,7 @@ public class SignUp extends WindowAdapter implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (id.getText().equals("")) {
 			dup.setText(null);
-		} else if (e.getActionCommand().equals(same.getLabel())) {
+		} else if (e.getActionCommand().equals(same.getActionCommand())) {
 			DupCheckDao dao = new DupCheckDao();
 			LoginVo v = new LoginVo(id.getText());
 			ArrayList<LoginVo> list = dao.dupCheck(v.getID());
@@ -132,7 +131,7 @@ public class SignUp extends WindowAdapter implements ActionListener {
 				}
 			}
 		}
-		if (e.getActionCommand().equals(ok.getLabel())) {
+		if (e.getActionCommand().equals(ok.getActionCommand())) {
 			CheckPassword ch = new CheckPassword();
 			if (id.getText().isEmpty() && pw.getText().isEmpty()) {
 				dup.setText(null);

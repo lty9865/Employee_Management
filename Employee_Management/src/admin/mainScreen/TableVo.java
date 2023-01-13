@@ -36,10 +36,11 @@ public class TableVo {
 		this.sugNum = sugNum;
 	}
 
-	public TableVo(String title, String area, String sugNum) {
+	public TableVo(String title, String area, String sugNum, String stat) {
 		this.title = title;
 		this.area = area;
 		this.sugNum = sugNum;
+		this.stat = stat;
 	}
 
 	public String getSugNum() {

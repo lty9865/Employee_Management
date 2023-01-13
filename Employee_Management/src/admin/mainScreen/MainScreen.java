@@ -27,13 +27,15 @@ import admin.register.Register;
 import common.openApi.OpenApiWeather;
 import common.openApi.WeatherVo;
 import font.Fonts;
+import font.RoundedButton;
 
 public class MainScreen extends WindowAdapter implements ActionListener {
 	private Frame frame2;
 	private TextField watch;
-	private Button addB, delB, b3, allBtn, logOut, sugg;
-	private Button e1, e2, e3, e4;
-	private Label title, temp, temp1, PTY, RN1;
+	private RoundedButton addB, delB, b3;
+	private Button e1, e2, e3, e4, sugg, logOut, allBtn;
+	private Label title, temp, temp1, PTY, RN1, RN2;
+	private Label deptList, empList, suggestion, logoutTitle;
 
 	// 테이블
 	private JTable table;
@@ -76,10 +78,11 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		t1.start();
 	}
 
-	Color selectColor = new Color(0, 153, 255);
+	Color selectColor = new Color(0, 76, 153);
 
 	@SuppressWarnings("serial")
 	public MainScreen() {
+		Fonts font = new Fonts();
 		// 프레임 설정
 		frame2 = new Frame("Employee Management");
 		frame2.setLayout(null);
@@ -87,71 +90,39 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		frame2.setLocationRelativeTo(null);
 		frame2.setResizable(false);
 
+		// 라벨
+		deptList = new Label("부서 목록");
+		empList = new Label("사원 목록");
+		suggestion = new Label("건의 사항");
+		logoutTitle = new Label("로그아웃");
+
+		deptList.setSize(190, 30);
+		deptList.setLocation(30, 60);
+		deptList.setFont(font.getFont4());
+		frame2.add(deptList);
+
+		empList.setSize(deptList.getSize());
+		empList.setLocation(250, 60);
+		empList.setFont(font.getFont4());
+		frame2.add(empList);
+
+		suggestion.setSize(empList.getSize());
+		suggestion.setLocation(deptList.getLocation().x, 350);
+		suggestion.setFont(font.getFont4());
+		frame2.add(suggestion);
+
+		logoutTitle.setSize(suggestion.getSize());
+		logoutTitle.setLocation(deptList.getLocation().x, 480);
+		logoutTitle.setFont(font.getFont4());
+		frame2.add(logoutTitle);
+
 		// 시계 설정
 		watch = new TextField();
 		watch.setSize(270, 30);
-		watch.setLocation(30, 60);
+		watch.setLocation(frame2.getSize().width - watch.getSize().width - 20, 60);
 		watch.setFocusable(false);
 		watch.setEditable(false);
 		ThreadTime();
-
-		// 버튼(등록, 삭제, 수정)
-		addB = new Button("사원 등록");
-		addB.setSize(195, 80);
-		addB.setLocation(975, 100);
-		addB.addActionListener(this);
-
-		delB = new Button("사원 삭제");
-		delB.setSize(addB.getSize());
-		delB.setLocation(addB.getLocation().x, addB.getLocation().y + 90);
-		delB.addActionListener(this);
-
-		b3 = new Button("사원 수정");
-		b3.setSize(addB.getSize());
-		b3.setLocation(delB.getLocation().x, delB.getLocation().y + 90);
-		b3.addActionListener(this);
-
-		logOut = new Button("로그아웃");
-		logOut.setSize(100, watch.getSize().height);
-		logOut.setLocation(watch.getLocation().x + watch.getSize().width, watch.getLocation().y);
-		logOut.addActionListener(this);
-
-		sugg = new Button("건의사항");
-		sugg.setSize(addB.getSize());
-		sugg.setLocation(b3.getLocation().x, b3.getLocation().y + 90);
-		sugg.addActionListener(this);
-
-		// 버튼(부서)
-		allBtn = new Button("전체");
-		allBtn.setSize(80, 40);
-		allBtn.setLocation(560, 60);
-		allBtn.setBackground(Color.gray);
-		allBtn.addActionListener(this);
-		allBtn.setBackground(selectColor);
-
-		e1 = new Button("총무");
-		e1.setSize(allBtn.getSize());
-		e1.setLocation(allBtn.getLocation().x + allBtn.getSize().width, allBtn.getLocation().y);
-		e1.setBackground(Color.white);
-		e1.addActionListener(this);
-
-		e2 = new Button("회계");
-		e2.setSize(allBtn.getSize());
-		e2.setLocation(e1.getLocation().x + allBtn.getSize().width, allBtn.getLocation().y);
-		e2.setBackground(Color.white);
-		e2.addActionListener(this);
-
-		e3 = new Button("인사");
-		e3.setSize(allBtn.getSize());
-		e3.setLocation(e2.getLocation().x + allBtn.getSize().width, allBtn.getLocation().y);
-		e3.setBackground(Color.white);
-		e3.addActionListener(this);
-
-		e4 = new Button("영업");
-		e4.setSize(allBtn.getSize());
-		e4.setLocation(e3.getLocation().x + allBtn.getSize().width, allBtn.getLocation().y);
-		e4.setBackground(Color.white);
-		e4.addActionListener(this);
 
 		// 테이블 설정
 		model = new DefaultTableModel(header, 0) {
@@ -165,9 +136,70 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		td = new TableDao();
 		a1 = td.searchAll();
 		makeTable();
-		sp.setSize(930, 640);
-		sp.setLocation(30, 100);
+		sp.setSize(930, 680);
+		sp.setLocation(250, 100);
 		frame2.add(sp);
+
+		// 버튼(부서)
+		allBtn = new Button("전체");
+		allBtn.setSize(deptList.getSize().width, 40);
+		allBtn.setLocation(deptList.getLocation().x, sp.getLocation().y);
+		allBtn.setBackground(Color.gray);
+		allBtn.addActionListener(this);
+		allBtn.setBackground(selectColor);
+		allBtn.setForeground(Color.white);
+
+		e1 = new Button("총무");
+		e1.setSize(allBtn.getSize());
+		e1.setLocation(allBtn.getLocation().x, allBtn.getLocation().y + allBtn.getSize().height);
+		e1.setBackground(Color.white);
+		e1.addActionListener(this);
+
+		e2 = new Button("회계");
+		e2.setSize(allBtn.getSize());
+		e2.setLocation(e1.getLocation().x, e1.getLocation().y + e1.getSize().height);
+		e2.setBackground(Color.white);
+		e2.addActionListener(this);
+
+		e3 = new Button("인사");
+		e3.setSize(allBtn.getSize());
+		e3.setLocation(e2.getLocation().x, e2.getLocation().y + e2.getSize().height);
+		e3.setBackground(Color.white);
+		e3.addActionListener(this);
+
+		e4 = new Button("영업");
+		e4.setSize(allBtn.getSize());
+		e4.setLocation(e3.getLocation().x, e3.getLocation().y + e3.getSize().height);
+		e4.setBackground(Color.white);
+		e4.addActionListener(this);
+
+		// 버튼(등록, 삭제, 수정)
+		addB = new RoundedButton("등록");
+		addB.setSize(60, watch.getSize().height);
+		addB.setLocation(frame2.getSize().width / 2 - (addB.getSize().width - 10), watch.getLocation().y);
+		addB.addActionListener(this);
+
+		b3 = new RoundedButton("편집");
+		b3.setSize(addB.getSize());
+		b3.setLocation(addB.getLocation().x + b3.getSize().width + 10, addB.getLocation().y);
+		b3.addActionListener(this);
+
+		delB = new RoundedButton("삭제");
+		delB.setSize(b3.getSize());
+		delB.setLocation(b3.getLocation().x + b3.getSize().width + 10, b3.getLocation().y);
+		delB.addActionListener(this);
+
+		sugg = new Button("건의사항");
+		sugg.setSize(e4.getSize());
+		sugg.setLocation(suggestion.getLocation().x, suggestion.getLocation().y + suggestion.getSize().height + 5);
+		sugg.setBackground(Color.white);
+		sugg.addActionListener(this);
+
+		logOut = new Button("로그아웃");
+		logOut.setSize(sugg.getSize());
+		logOut.setLocation(logoutTitle.getLocation().x, logoutTitle.getLocation().y + logoutTitle.getSize().height + 5);
+		logOut.setBackground(Color.white);
+		logOut.addActionListener(this);
 
 		// 날씨 가져오기
 		String strPTY = null;
@@ -197,28 +229,34 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		}
 
 		title = new Label("현재 날씨");
-		title.setSize(195, 50);
-		title.setLocation(b3.getLocation().x, b3.getLocation().y + b3.getSize().height + 180);
+		title.setSize(deptList.getSize());
+		title.setLocation(logoutTitle.getLocation().x,
+				logoutTitle.getLocation().y + logoutTitle.getSize().height + 100);
+		title.setFont(font.getFont4());
 
 		temp1 = new Label("현재 기온");
 		temp1.setSize(title.getSize().width / 2, title.getSize().height);
 		temp1.setLocation(title.getLocation().x, title.getLocation().y + title.getSize().height + 30);
 
-		Fonts font = new Fonts();
 		String strTemp = String.valueOf(weather.getT1H());
 		temp = new Label(strTemp);
-		temp.setSize(temp1.getSize());
-		temp.setLocation(temp1.getLocation().x + temp1.getSize().width, temp1.getLocation().y);
+		temp.setSize(50, 50);
+		temp.setLocation(temp1.getLocation().x + temp1.getSize().width, temp1.getLocation().y - 10);
 		temp.setFont(font.getFont2());
 
 		PTY = new Label(strPTY);
 		PTY.setSize(temp1.getSize());
 		PTY.setLocation(temp1.getLocation().x, temp1.getLocation().y + temp1.getSize().height + 30);
 
-		String strRN1 = String.valueOf(weather.getRN1()) + " mm";
+		String strRN1 = String.valueOf(weather.getRN1());
 		RN1 = new Label(strRN1);
-		RN1.setSize(PTY.getSize());
-		RN1.setLocation(PTY.getLocation().x + PTY.getSize().width, PTY.getLocation().y);
+		RN1.setSize(temp.getSize());
+		RN1.setLocation(PTY.getLocation().x + PTY.getSize().width, PTY.getLocation().y - 10);
+		RN1.setFont(font.getFont2());
+
+		RN2 = new Label("mm");
+		RN2.setSize(PTY.getSize());
+		RN2.setLocation(RN1.getLocation().x + RN1.getSize().width, PTY.getLocation().y);
 
 		frame2.addWindowListener(this);
 		frame2.add(watch);
@@ -237,6 +275,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		frame2.add(RN1);
 		frame2.add(logOut);
 		frame2.add(sugg);
+		frame2.add(RN2);
 
 		frame2.setVisible(true);
 	}
@@ -257,46 +296,71 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		} else if (e.getActionCommand().equals(allBtn.getActionCommand())) {
 			System.out.println("전체");
 			allBtn.setBackground(selectColor);
+			allBtn.setForeground(Color.white);
 			e1.setBackground(Color.white);
+			e1.setForeground(Color.BLACK);
 			e2.setBackground(Color.white);
+			e2.setForeground(Color.BLACK);
 			e3.setBackground(Color.white);
+			e3.setForeground(Color.BLACK);
 			e4.setBackground(Color.white);
+			e4.setForeground(Color.BLACK);
 			a1 = td.searchAll();
 			makeTable();
 		} else if (e.getActionCommand().equals(e1.getActionCommand())) {
 			System.out.println("총무");
 			e1.setBackground(selectColor);
+			e1.setForeground(Color.white);
 			allBtn.setBackground(Color.white);
+			allBtn.setForeground(Color.black);
 			e2.setBackground(Color.white);
+			e2.setForeground(Color.black);
 			e3.setBackground(Color.white);
+			e3.setForeground(Color.black);
 			e4.setBackground(Color.white);
+			e4.setForeground(Color.black);
 			allEmp = td.searchEmp(e1.getLabel().toString());
 			makeTableDept();
 		} else if (e.getActionCommand().equals(e2.getActionCommand())) {
 			System.out.println("회계");
 			e2.setBackground(selectColor);
+			e2.setForeground(Color.white);
 			e1.setBackground(Color.white);
+			e1.setForeground(Color.black);
 			allBtn.setBackground(Color.white);
+			allBtn.setForeground(Color.black);
 			e3.setBackground(Color.white);
+			e3.setForeground(Color.black);
 			e4.setBackground(Color.white);
+			e4.setForeground(Color.black);
 			allEmp = td.searchEmp(e2.getLabel().toString());
 			makeTableDept();
 		} else if (e.getActionCommand().equals(e3.getActionCommand())) {
 			System.out.println("인사");
 			e3.setBackground(selectColor);
+			e3.setForeground(Color.white);
 			e1.setBackground(Color.white);
+			e1.setForeground(Color.black);
 			e2.setBackground(Color.white);
+			e2.setForeground(Color.black);
 			allBtn.setBackground(Color.white);
+			allBtn.setForeground(Color.black);
 			e4.setBackground(Color.white);
+			e4.setForeground(Color.black);
 			allEmp = td.searchEmp(e3.getLabel().toString());
 			makeTableDept();
 		} else if (e.getActionCommand().equals(e4.getActionCommand())) {
 			System.out.println("영업");
 			e4.setBackground(selectColor);
+			e4.setForeground(Color.white);
 			e1.setBackground(Color.white);
+			e1.setForeground(Color.black);
 			e2.setBackground(Color.white);
+			e2.setForeground(Color.black);
 			e3.setBackground(Color.white);
+			e3.setForeground(Color.black);
 			allBtn.setBackground(Color.white);
+			allBtn.setForeground(Color.black);
 			allEmp = td.searchEmp(e4.getLabel().toString());
 			makeTableDept();
 		}
@@ -312,7 +376,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 
 		if (e.getActionCommand().equals(sugg.getActionCommand())) {
 			new NoticeFrame();
-			
+
 		}
 	}
 

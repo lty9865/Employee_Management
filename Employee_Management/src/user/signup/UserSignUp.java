@@ -1,7 +1,5 @@
 package user.signup;
 
-import java.awt.Button;
-
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Label;
@@ -24,12 +22,13 @@ import common.searchEmp.SearchEmpVo;
 import common.signUpDao.DupCheckDao;
 import common.signUpDao.InsertAccountDao;
 import font.Fonts;
+import font.RoundedButton;
 import user.dimension.UserDimension;
 
 public class UserSignUp extends WindowAdapter implements ActionListener, MouseListener, KeyListener {
 	private Frame frame;
 	private TextField empNo, id, pw1, pw2;
-	private Button search, dupli, ok, cancel;
+	private RoundedButton search, dupli, ok, cancel;
 	private Label l1, l2, l3, l4, l5;
 
 	DupCheckDao dao = new DupCheckDao();
@@ -61,7 +60,7 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 		l1.setFont(font.getFont1());
 		l1.setForeground(Color.blue);
 
-		search = new Button("조회");
+		search = new RoundedButton("조회");
 		search.setSize(60, empNo.getSize().height);
 		search.setLocation(empNo.getLocation().x + empNo.getSize().width + 10, empNo.getLocation().y);
 		search.addActionListener(this);
@@ -85,7 +84,7 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 		l2.setFont(font.getFont1());
 		l2.setForeground(Color.blue);
 
-		dupli = new Button("중복확인");
+		dupli = new RoundedButton("중복확인");
 		dupli.setSize(search.getSize());
 		dupli.setLocation(id.getLocation().x + id.getSize().width + 10, id.getLocation().y);
 		dupli.addActionListener(this);
@@ -113,12 +112,12 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 		l3.setFont(font.getFont1());
 		l3.setForeground(Color.red);
 
-		ok = new Button("확인");
+		ok = new RoundedButton("확인");
 		ok.setSize(120, 50);
 		ok.setLocation(l3.getLocation().x, l3.getLocation().y + l3.getSize().height + 10);
 		ok.addActionListener(this);
 
-		cancel = new Button("취소");
+		cancel = new RoundedButton("취소");
 		cancel.setSize(ok.getSize());
 		cancel.setLocation(ok.getLocation().x + ok.getSize().width + 10, ok.getLocation().y);
 		;
@@ -146,10 +145,10 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals(cancel.getLabel())) {
+		if (e.getActionCommand().equals(cancel.getActionCommand())) {
 			frame.dispose();
 		}
-		if (e.getActionCommand().equals(search.getLabel())) {
+		if (e.getActionCommand().equals(search.getActionCommand())) {
 			if (empNo.getText().isEmpty() == false) {
 				String empNo1 = empNo.getText();
 				SearchEmpDao dao = new SearchEmpDao();
@@ -180,7 +179,7 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 				}
 			}
 		}
-		if (e.getActionCommand().equals(dupli.getLabel())) {
+		if (e.getActionCommand().equals(dupli.getActionCommand())) {
 			String id1 = id.getText();
 			boolean b1 = true;
 			boolean b2 = true;
@@ -212,7 +211,7 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 				l2.setText("사용불가능한 아이디입니다.");
 			}
 		}
-		if (e.getActionCommand().equals(ok.getLabel())) {
+		if (e.getActionCommand().equals(ok.getActionCommand())) {
 			if ((pw1.getText().equals(pw2.getText()) == false)) {
 				l3.setText("비밀번호가 다릅니다.");
 			} else if ((pw1.getText().isEmpty() && pw2.getText().isEmpty()) == false

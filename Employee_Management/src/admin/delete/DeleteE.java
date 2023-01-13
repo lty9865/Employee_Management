@@ -1,7 +1,5 @@
 package admin.delete;
 
-import java.awt.Button;
-
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.TextField;
@@ -13,10 +11,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import common.searchEmp.SearchEmpDao;
+import font.RoundedButton;
 
 public class DeleteE extends WindowAdapter implements ActionListener, MouseListener {
 	private Frame frameDel;
-	private Button search, ok, cancel;
+	private RoundedButton search, ok, cancel;
 	private TextField depID;
 	private TextField[] t;
 	private Label[] l;
@@ -59,18 +58,18 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 		}
 
 		// 버튼
-		ok = new Button("삭제");
+		ok = new RoundedButton("삭제");
 		ok.setSize(100, 50);
 		ok.setLocation(l[l.length - 1].getLocation().x,
 				l[l.length - 1].getLocation().y + l[l.length - 1].getSize().height + 20);
 		ok.addActionListener(this);
 
-		search = new Button("조회");
+		search = new RoundedButton("조회");
 		search.setSize(60, 30);
 		search.setLocation(depID.getLocation().x + depID.getSize().width + 10, depID.getLocation().y);
 		search.addActionListener(this);
 
-		cancel = new Button("취소");
+		cancel = new RoundedButton("취소");
 		cancel.setSize(ok.getSize());
 		cancel.setLocation(t[t.length - 1].getLocation().x + t[t.length - 1].getSize().width - cancel.getSize().width,
 				ok.getLocation().y);
@@ -93,7 +92,7 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String deptNum = depID.getText();
-		if (e.getActionCommand().equals(search.getLabel())) {
+		if (e.getActionCommand().equals(search.getActionCommand())) {
 			System.out.println("search");
 			SearchEmpDao sd = new SearchEmpDao();
 			String[] strArr = sd.searchDel(deptNum);
@@ -102,11 +101,11 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 					t[i].setText(strArr[i]);
 				}
 			}
-		} else if (e.getActionCommand().equals(ok.getLabel())) {
+		} else if (e.getActionCommand().equals(ok.getActionCommand())) {
 			System.out.println("Delete");
 			new DeleteDao(deptNum);
 			frameDel.dispose();
-		} else if (e.getActionCommand().equals(cancel.getLabel())) {
+		} else if (e.getActionCommand().equals(cancel.getActionCommand())) {
 			frameDel.dispose();
 		}
 	}

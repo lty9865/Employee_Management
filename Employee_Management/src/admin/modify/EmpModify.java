@@ -1,6 +1,5 @@
 package admin.modify;
 
-import java.awt.Button;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.TextField;
@@ -15,10 +14,11 @@ import java.awt.event.WindowEvent;
 
 import admin.delete.DeleteDao;
 import common.searchEmp.SearchEmpDao;
+import font.RoundedButton;
 
 public class EmpModify extends WindowAdapter implements MouseListener, ActionListener, KeyListener {
 	private Frame frame;
-	private Button search, ok, cancel;
+	private RoundedButton search, ok, cancel;
 	private TextField depID;
 	private TextField[] t;
 	private Label[] l;
@@ -62,18 +62,18 @@ public class EmpModify extends WindowAdapter implements MouseListener, ActionLis
 		t[4].addKeyListener(this);
 
 		// 버튼
-		ok = new Button("수정");
+		ok = new RoundedButton("수정");
 		ok.setSize(100, 50);
 		ok.setLocation(l[l.length - 1].getLocation().x,
 				l[l.length - 1].getLocation().y + l[l.length - 1].getSize().height + 20);
 		ok.addActionListener(this);
 
-		search = new Button("조회");
+		search = new RoundedButton("조회");
 		search.setSize(60, 30);
 		search.setLocation(depID.getLocation().x + depID.getSize().width + 10, depID.getLocation().y);
 		search.addActionListener(this);
 
-		cancel = new Button("취소");
+		cancel = new RoundedButton("취소");
 		cancel.setSize(ok.getSize());
 		cancel.setLocation(t[t.length - 1].getLocation().x + t[t.length - 1].getSize().width - cancel.getSize().width,
 				ok.getLocation().y);
@@ -130,7 +130,7 @@ public class EmpModify extends WindowAdapter implements MouseListener, ActionLis
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String deptNum = depID.getText();
-		if (e.getActionCommand().equals(search.getLabel())) {
+		if (e.getActionCommand().equals(search.getActionCommand())) {
 			System.out.println("search");
 			SearchEmpDao sd = new SearchEmpDao();
 			String[] strArr = sd.searchDel(deptNum);
@@ -143,12 +143,12 @@ public class EmpModify extends WindowAdapter implements MouseListener, ActionLis
 				t[0].setEditable(false);
 				t[0].setFocusable(false);
 			}
-		} else if (e.getActionCommand().equals(ok.getLabel())) {
+		} else if (e.getActionCommand().equals(ok.getActionCommand())) {
 			System.out.println("Modify");
 			DeleteDao dao = new DeleteDao();
 			dao.ModifyDao(t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), depID.getText());
 			frame.dispose();
-		} else if (e.getActionCommand().equals(cancel.getLabel())) {
+		} else if (e.getActionCommand().equals(cancel.getActionCommand())) {
 			frame.dispose();
 		}
 	}

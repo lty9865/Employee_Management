@@ -1,6 +1,5 @@
 package admin.register;
 
-import java.awt.Button;
 import java.awt.Choice;
 import java.awt.Frame;
 import java.awt.Label;
@@ -13,9 +12,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 
+import font.RoundedButton;
+
 public class Register extends WindowAdapter implements ActionListener, KeyListener {
 	private Frame frameRes;
-	private Button ok;
+	private RoundedButton ok;
 	private TextField[] t;
 	private TextField moT;
 	private Label[] l;
@@ -100,7 +101,7 @@ public class Register extends WindowAdapter implements ActionListener, KeyListen
 		frameRes.add(moT);
 
 		// 버튼
-		ok = new Button("추가");
+		ok = new RoundedButton("추가");
 		ok.setSize(100, 50);
 		ok.setLocation((frameRes.getSize().width / 2) - (ok.getSize().width / 2),
 				(l[l.length - 1].getLocation().y) + 50);
@@ -121,7 +122,7 @@ public class Register extends WindowAdapter implements ActionListener, KeyListen
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (t[1].getText().isEmpty() || t[2].getText().isEmpty() || moT.getText().isEmpty()) {
-		} else if (e.getActionCommand().equals(ok.getLabel())) {
+		} else if (e.getActionCommand().equals(ok.getActionCommand())) {
 			StringBuilder birth = new StringBuilder();
 			birth.append(y.getSelectedItem());
 			int mi = Integer.parseInt(m.getSelectedItem());

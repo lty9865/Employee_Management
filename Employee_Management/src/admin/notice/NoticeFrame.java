@@ -1,6 +1,5 @@
 package admin.notice;
 
-import java.awt.Button;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,10 +15,11 @@ import javax.swing.table.DefaultTableModel;
 
 import admin.mainScreen.TableDao;
 import admin.mainScreen.TableVo;
+import font.RoundedButton;
 
 public class NoticeFrame extends WindowAdapter implements ActionListener {
 	private Frame frame;
-	private Button cancel;
+	private RoundedButton cancel;
 
 	// 테이블
 	private JTable table;
@@ -38,10 +38,10 @@ public class NoticeFrame extends WindowAdapter implements ActionListener {
 		frame.setLayout(null);
 		frame.addWindowListener(this);
 
-		cancel = new Button("취소");
+		cancel = new RoundedButton("취소");
 		cancel.setSize(70, 35);
 		cancel.setLocation(frame.getSize().width / 2 - cancel.getSize().width / 2,
-				frame.getSize().height - cancel.getSize().height - 15);
+				frame.getSize().height - cancel.getSize().height - 20);
 		cancel.addActionListener(this);
 		frame.add(cancel);
 
@@ -61,7 +61,8 @@ public class NoticeFrame extends WindowAdapter implements ActionListener {
 					String title = list.get(0).getTitle();
 					String area = list.get(0).getArea();
 					String sugNum = list.get(0).getSugNum();
-					new NoticeFrame2(title, area, sugNum);
+					String stat = list.get(0).getStat();
+					new NoticeFrame2(title, area, sugNum, stat);
 					frame.dispose();
 				}
 			}
@@ -71,7 +72,7 @@ public class NoticeFrame extends WindowAdapter implements ActionListener {
 		td = new TableDao();
 		a1 = td.searchSugg();
 		makeTable();
-		sp.setSize(frame.getSize().width - 30, frame.getSize().height - 140);
+		sp.setSize(frame.getSize().width - 30, frame.getSize().height - 105);
 		sp.setLocation(frame.getSize().width / 2 - sp.getSize().width / 2, 40);
 		frame.add(sp);
 
