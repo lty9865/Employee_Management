@@ -41,6 +41,7 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 		frame.setSize(ud.getWidth(), ud.getHeight());
 		frame.setLocationRelativeTo(null);
 		frame.addWindowListener(this);
+		frame.setResizable(false);
 
 		// 사원번호
 		l4 = new Label("사원번호");
@@ -93,7 +94,6 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 		pw1 = new TextField("비밀번호를 입력하세요.");
 		pw1.setSize(frame.getSize().width - 40, id.getSize().height);
 		pw1.setLocation(id.getLocation().x, id.getLocation().y + id.getSize().height + 40);
-		pw1.addMouseListener(this);
 		pw1.addKeyListener(this);
 		pw1.setEditable(false);
 		pw1.setFocusable(false);
@@ -101,7 +101,6 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 		pw2 = new TextField("비밀번호를 다시 한번 입력하세요.");
 		pw2.setSize(pw1.getSize());
 		pw2.setLocation(pw1.getLocation().x, pw1.getLocation().y + pw1.getSize().height + 10);
-		pw2.addMouseListener(this);
 		pw2.addKeyListener(this);
 		pw2.setEditable(false);
 		pw2.setFocusable(false);
@@ -170,6 +169,8 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 							pw1.setFocusable(true);
 							pw2.setEditable(true);
 							pw2.setFocusable(true);
+							pw1.addMouseListener(this);
+							pw2.addMouseListener(this);
 							break;
 						} else {
 							l1.setForeground(Color.red);

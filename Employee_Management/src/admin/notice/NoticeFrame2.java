@@ -26,6 +26,7 @@ public class NoticeFrame2 extends WindowAdapter implements ActionListener {
 		frame.setLocationRelativeTo(null);
 		frame.setLayout(null);
 		frame.addWindowListener(this);
+		frame.setResizable(false);
 
 		title = new TextField(titleT);
 		title.setSize(frame.getSize().width - 30, 30);

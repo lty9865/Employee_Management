@@ -30,6 +30,7 @@ public class EmpModify extends WindowAdapter implements MouseListener, ActionLis
 		frame.setLayout(null);
 		frame.setSize(300, 450);
 		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
 
 		// 텍스트필드(사번)
 		depID = new TextField("사원번호를 입력하세요.");
@@ -142,12 +143,16 @@ public class EmpModify extends WindowAdapter implements MouseListener, ActionLis
 				}
 				t[0].setEditable(false);
 				t[0].setFocusable(false);
+				depID.setEditable(false);
+				depID.setFocusable(false);
 			}
 		} else if (e.getActionCommand().equals(ok.getActionCommand())) {
-			System.out.println("Modify");
-			DeleteDao dao = new DeleteDao();
-			dao.ModifyDao(t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), depID.getText());
-			frame.dispose();
+			if (depID.isEditable() == false) {
+				System.out.println("Modify");
+				DeleteDao dao = new DeleteDao();
+				dao.ModifyDao(t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), depID.getText());
+				frame.dispose();
+			}
 		} else if (e.getActionCommand().equals(cancel.getActionCommand())) {
 			frame.dispose();
 		}

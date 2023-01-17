@@ -89,7 +89,7 @@ public class OpenApiWeather {
 		}
 		rd.close();
 		conn.disconnect();
-		System.out.println(sb.toString());
+		System.out.println("OpenAPI Connect Success");
 		String result = sb.toString();
 
 		// 문자열 Document 로 변경 후 List 형태로 가져와 파싱
@@ -100,9 +100,9 @@ public class OpenApiWeather {
 
 		try {
 			document.getDocumentElement().normalize();
-			System.out.println("Root Element :" + document.getDocumentElement().getNodeName());
+//			System.out.println("Root Element :" + document.getDocumentElement().getNodeName());
 			NodeList nList = document.getElementsByTagName("item");
-			System.out.println("-------------------------------------");
+//			System.out.println("-------------------------------------");
 			for (int temp = 0; temp < nList.getLength(); temp++) {
 				Node nNode = nList.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -144,7 +144,7 @@ public class OpenApiWeather {
 					}
 				}
 			}
-			System.out.println(weather.toString());
+//			System.out.println(weather.toString());
 		} catch (XMLParseException e) {
 			e.printStackTrace();
 		}

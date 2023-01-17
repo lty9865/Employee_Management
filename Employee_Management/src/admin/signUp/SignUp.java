@@ -31,6 +31,7 @@ public class SignUp extends WindowAdapter implements ActionListener {
 		frame.setLayout(null);
 		frame.setSize(450, 450);
 		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
 
 		// 라벨
 		l1 = new Label("ID");

@@ -36,6 +36,7 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 		frame.setSize(ud.getWidth(), ud.getHeight() - 90);
 		frame.setLocationRelativeTo(null);
 		frame.addWindowListener(this);
+		frame.setResizable(false);
 
 		// 라벨
 		hi = new Label("안녕하세요.");
@@ -71,13 +72,13 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 		l[1].setLocation(l[0].getLocation().x, l[0].getLocation().y + l[0].getSize().height + 5);
 
 		b1 = new RoundedButton("출근");
-		b1.setSize(260, 50);
-		b1.setLocation(l[1].getLocation().x, l[1].getLocation().y + l[1].getSize().height + 5);
+		b1.setSize(260, 40);
+		b1.setLocation(l[1].getLocation().x, l[1].getLocation().y + l[1].getSize().height + 15);
 		b1.addActionListener(this);
 
 		b2 = new RoundedButton("건의사항");
 		b2.setSize(b1.getSize());
-		b2.setLocation(b1.getLocation().x, b1.getLocation().y + b1.getSize().height + 5);
+		b2.setLocation(b1.getLocation().x, b1.getLocation().y + b1.getSize().height + 15);
 		b2.addActionListener(this);
 
 		for (int i = 0; i < arrName.length; i++) {
@@ -112,6 +113,7 @@ public class UserMainScreen extends WindowAdapter implements ActionListener {
 					b1.setLabel("퇴근");
 				} else {
 					t[1].setText(eWork);
+					b1.setVisible(false);
 					b1.setEnabled(false);
 				}
 			}

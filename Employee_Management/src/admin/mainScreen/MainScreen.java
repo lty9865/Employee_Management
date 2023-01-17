@@ -32,8 +32,8 @@ import font.RoundedButton;
 public class MainScreen extends WindowAdapter implements ActionListener {
 	private Frame frame2;
 	private TextField watch;
-	private RoundedButton addB, delB, b3;
-	private Button e1, e2, e3, e4, sugg, logOut, allBtn;
+	private RoundedButton addB, delB, b3, sugg, logOut;
+	private Button e1, e2, e3, e4, allBtn;
 	private Label title, temp, temp1, PTY, RN1, RN2;
 	private Label deptList, empList, suggestion, logoutTitle;
 
@@ -48,6 +48,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 
 	// 시계
 	private Thread t1;
+	Date date = new Date();
 
 	public void ThreadTime() {
 
@@ -55,7 +56,6 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 			public void run() {
 
 				while (true) {
-					Date date = new Date();
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 ");
 					String strDate = sdf.format(date);
 
@@ -132,6 +132,8 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		};
 		table = new JTable(model);
 		table.setRowHeight(30);
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
 		sp = new JScrollPane(table);
 		td = new TableDao();
 		a1 = td.searchAll();
@@ -189,13 +191,13 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		delB.setLocation(b3.getLocation().x + b3.getSize().width + 10, b3.getLocation().y);
 		delB.addActionListener(this);
 
-		sugg = new Button("건의사항");
+		sugg = new RoundedButton("건의사항");
 		sugg.setSize(e4.getSize());
 		sugg.setLocation(suggestion.getLocation().x, suggestion.getLocation().y + suggestion.getSize().height + 5);
 		sugg.setBackground(Color.white);
 		sugg.addActionListener(this);
 
-		logOut = new Button("로그아웃");
+		logOut = new RoundedButton("로그아웃");
 		logOut.setSize(sugg.getSize());
 		logOut.setLocation(logoutTitle.getLocation().x, logoutTitle.getLocation().y + logoutTitle.getSize().height + 5);
 		logOut.setBackground(Color.white);
@@ -243,6 +245,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		temp.setSize(50, 50);
 		temp.setLocation(temp1.getLocation().x + temp1.getSize().width, temp1.getLocation().y - 10);
 		temp.setFont(font.getFont2());
+		temp.setAlignment(2);
 
 		PTY = new Label(strPTY);
 		PTY.setSize(temp1.getSize());
@@ -253,6 +256,7 @@ public class MainScreen extends WindowAdapter implements ActionListener {
 		RN1.setSize(temp.getSize());
 		RN1.setLocation(PTY.getLocation().x + PTY.getSize().width, PTY.getLocation().y - 10);
 		RN1.setFont(font.getFont2());
+		RN1.setAlignment(2);
 
 		RN2 = new Label("mm");
 		RN2.setSize(PTY.getSize());

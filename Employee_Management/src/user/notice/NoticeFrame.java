@@ -35,6 +35,7 @@ public class NoticeFrame extends WindowAdapter implements ActionListener, MouseL
 		frame.setLayout(null);
 		frame.setVisible(true);
 		frame.addWindowListener(this);
+		frame.setResizable(false);
 
 		title = new TextField();
 		title.setSize(frame.getSize().width - 90, 30);

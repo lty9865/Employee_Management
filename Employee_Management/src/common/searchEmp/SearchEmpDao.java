@@ -17,14 +17,14 @@ public class SearchEmpDao {
 			ConnectDB cn = new ConnectDB();
 
 			query = "SELECT DEPT_NAME, POS, NAME, BIRTH, MOBILE " + "FROM EMP e, DEPARTMENT d "
-					+ "WHERE E.DEPT_ID = D.DEPT_ID " + "AND e.EMP_NO LIKE " + deptNum;
+					+ "WHERE E.DEPT_ID = D.DEPT_ID " + "AND e.EMP_NO LIKE '" + deptNum + "'";
 			rs = cn.getStmt().executeQuery(query);
 
 			if (rs.next()) {
 				searchDel = new String[5];
 				searchDel[0] = rs.getString("DEPT_NAME");
-				searchDel[1] = rs.getString("NAME");
-				searchDel[2] = rs.getString("POS");
+				searchDel[1] = rs.getString("POS");
+				searchDel[2] = rs.getString("NAME");
 				searchDel[3] = rs.getString("BIRTH");
 				searchDel[4] = rs.getString("MOBILE");
 			}

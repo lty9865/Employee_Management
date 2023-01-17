@@ -14,6 +14,8 @@ public class DeleteDao {
 		try {
 			ConnectDB cn = new ConnectDB();
 
+			query = "DELETE FROM USERLOGIN WHERE EMP_NO LIKE " + deptNum;
+			cn.getStmt().executeUpdate(query);
 			query = "DELETE FROM commute WHERE EMP_NO LIKE " + deptNum;
 			cn.getStmt().executeUpdate(query);
 			query = "DELETE FROM EMP WHERE EMP_NO LIKE " + deptNum;

@@ -28,6 +28,7 @@ public class Register extends WindowAdapter implements ActionListener, KeyListen
 		frameRes.setLayout(null);
 		frameRes.setSize(320, 450);
 		frameRes.setLocationRelativeTo(null);
+		frameRes.setResizable(false);
 
 		// 라벨
 		String[] name = { "부서", "직급", "이름", "생년월일", "전화번호" };
@@ -63,7 +64,7 @@ public class Register extends WindowAdapter implements ActionListener, KeyListen
 		// 생년월일
 		LocalDate now = LocalDate.now();
 		y = new Choice();
-		for (int i = 1950, j = now.getYear(); i <= j; i++) {
+		for (int i = 1950, j = now.getYear() - 19; i <= j; i++) {
 			y.add(Integer.toString(i));
 		}
 		y.setSize(70, 30);
@@ -135,8 +136,11 @@ public class Register extends WindowAdapter implements ActionListener, KeyListen
 			mobile.append(moT.getText());
 
 			InsertUserDao dao = new InsertUserDao();
-			UserVo v = new UserVo(ch.getSelectedItem(), t[1].getText(), t[2].getText(), birth.toString(),
-					mobile.toString());
+			String strDept = t[1].getText();
+			if (ch.getSelectedItem().equals("영업")) {
+				strDept = ch.getSelectedItem() + t[1].getText();
+			}
+			UserVo v = new UserVo(ch.getSelectedItem(), strDept, t[2].getText(), birth.toString(), mobile.toString());
 			dao.insert(v.getDeptName(), v.getPos(), v.getName(), v.getBirth(), v.getMobile());
 			frameRes.dispose();
 		}

@@ -27,6 +27,7 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 		frameDel.setLayout(null);
 		frameDel.setSize(300, 450);
 		frameDel.setLocationRelativeTo(null);
+		frameDel.setResizable(false);
 
 		// 텍스트필드(사번)
 		depID = new TextField("사원번호를 입력하세요.");
@@ -102,9 +103,11 @@ public class DeleteE extends WindowAdapter implements ActionListener, MouseListe
 				}
 			}
 		} else if (e.getActionCommand().equals(ok.getActionCommand())) {
-			System.out.println("Delete");
-			new DeleteDao(deptNum);
-			frameDel.dispose();
+			if (t[2].getText().isEmpty() == false) {
+				System.out.println("Delete");
+				new DeleteDao(deptNum);
+				frameDel.dispose();
+			}
 		} else if (e.getActionCommand().equals(cancel.getActionCommand())) {
 			frameDel.dispose();
 		}

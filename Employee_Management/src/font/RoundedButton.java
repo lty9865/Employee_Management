@@ -40,8 +40,8 @@ public class RoundedButton extends JButton {
 	}
 
 	protected void decorate() {
-		setBorderPainted(false);
-		setOpaque(false);
+		setBorderPainted(true);
+		setOpaque(true);
 	}
 
 	@Override

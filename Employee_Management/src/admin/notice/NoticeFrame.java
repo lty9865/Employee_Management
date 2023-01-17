@@ -37,6 +37,7 @@ public class NoticeFrame extends WindowAdapter implements ActionListener {
 		frame.setLocationRelativeTo(null);
 		frame.setLayout(null);
 		frame.addWindowListener(this);
+		frame.setResizable(false);
 
 		cancel = new RoundedButton("취소");
 		cancel.setSize(70, 35);

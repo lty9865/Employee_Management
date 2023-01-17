@@ -131,7 +131,26 @@ public class TableDao {
 			cn.getStmt().close();
 			cn.getCon().close();
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
+	public void updateComm(String nowdate) {
+		try {
+			ConnectDB cn = new ConnectDB();
+
+			query = "select * from commute where nowtime = '" + nowdate + "'";
+			rs = cn.getStmt().executeQuery(query);
+
+			if (rs.next() == false) {
+				query = "update emp set commute = null";
+				cn.getStmt().executeUpdate(query);
+
+				cn.getCon().close();
+				cn.getStmt().close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

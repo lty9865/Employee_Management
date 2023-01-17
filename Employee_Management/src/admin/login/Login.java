@@ -11,13 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import admin.demension.AdminDimension;
 import admin.mainScreen.MainScreen;
+import admin.mainScreen.TableDao;
 import admin.signUp.SignUp;
 import common.loginDao.LoginDao;
 import common.loginDao.LoginVo;
@@ -49,6 +52,12 @@ public class Login extends WindowAdapter implements ActionListener {
 	Color selectColor = new Color(0, 153, 255);
 
 	public Login() {
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String strDate = sdf.format(date);
+
+		new TableDao().updateComm(strDate);
+
 		// 프레임 설정
 		frame = new Frame("Employee Management");
 		frame.setLayout(null);
