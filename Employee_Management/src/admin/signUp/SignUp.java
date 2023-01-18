@@ -50,24 +50,19 @@ public class SignUp extends WindowAdapter implements ActionListener, KeyListener
 		id.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
 				if (e.getKeyChar() == ' ') {
 					e.consume();
 				}
-
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
 				if (e.getKeyChar() == KeyEvent.VK_TAB) {
 				}
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 		// 라벨 PW
@@ -83,24 +78,19 @@ public class SignUp extends WindowAdapter implements ActionListener, KeyListener
 		pw.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
 				if (e.getKeyChar() == ' ') {
 					e.consume();
 				}
-
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
 				if (e.getKeyChar() == KeyEvent.VK_TAB) {
 				}
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 
@@ -112,24 +102,19 @@ public class SignUp extends WindowAdapter implements ActionListener, KeyListener
 		pw2.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
 				if (e.getKeyChar() == ' ') {
 					e.consume();
 				}
-
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
 				if (e.getKeyChar() == KeyEvent.VK_TAB) {
 				}
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 
@@ -185,96 +170,142 @@ public class SignUp extends WindowAdapter implements ActionListener, KeyListener
 			boolean b2 = id.getText().length() >= 5;
 			dup.setFont(f1.getFont1());
 
-			for (int i = 0; i < list.size(); i++) {
-				LoginVo data = (LoginVo) list.get(i);
-				String userID = data.getID();
-				boolean b1 = Pattern.matches("^[a-zA-Z0-9]*$", id.getText());
-				if (b2 == false) {
-					dup.setForeground(Color.red);
-					dup.setText("5자 이상 입력하세요.");
-				} else if (userID.equals(id.getText().toUpperCase()) || b1 == false) {
-					dup.setForeground(Color.red);
-					dup.setText("사용할 수 없는 아이디 입니다.");
-					break;
-				} else {
-					dup.setForeground(Color.blue);
-					dup.setText("사용할 수 있는 아이디 입니다.");
-					pw.setEditable(true);
-					pw.addKeyListener(this);
-					pw2.addKeyListener(this);
-					pw2.setEditable(true);
-					pw.setFocusable(true);
-					pw2.setFocusable(true);
-					pw2.addMouseListener(new MouseListener() {
+			if (list.size() == 0) {
 
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							// TODO Auto-generated method stub
+				dup.setForeground(Color.blue);
+				dup.setText("사용할 수 있는 아이디 입니다.");
+				pw.setEditable(true);
+				pw.addKeyListener(this);
+				pw2.addKeyListener(this);
+				pw2.setEditable(true);
+				pw.setFocusable(true);
+				pw2.setFocusable(true);
+				pw2.addMouseListener(new MouseListener() {
 
+					@Override
+					public void mouseClicked(MouseEvent e) {
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						if (pw2.getText().equals("비밀번호를 다시 한번 입력하세요.")) {
+							pw2.setText(null);
+							pw2.setEchoChar('*');
 						}
+					}
 
-						@Override
-						public void mousePressed(MouseEvent e) {
-							// TODO Auto-generated method stub
-							if (pw2.getText().equals("비밀번호를 다시 한번 입력하세요.")) {
-								pw2.setText(null);
-								pw2.setEchoChar('*');
+					@Override
+					public void mouseReleased(MouseEvent e) {
+					}
+
+					@Override
+					public void mouseEntered(MouseEvent e) {
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+					}
+				});
+				pw.addMouseListener(new MouseListener() {
+
+					@Override
+					public void mouseClicked(MouseEvent e) {
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						if (pw.getText().equals("비밀번호를 입력하세요.")) {
+							pw.setText(null);
+							pw.setEchoChar('*');
+						}
+					}
+
+					@Override
+					public void mouseReleased(MouseEvent e) {
+					}
+
+					@Override
+					public void mouseEntered(MouseEvent e) {
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+					}
+				});
+			} else {
+				for (int i = 0; i < list.size(); i++) {
+					LoginVo data = (LoginVo) list.get(i);
+					String userID = data.getID();
+					boolean b1 = Pattern.matches("^[a-zA-Z0-9]*$", id.getText());
+					if (b2 == false) {
+						dup.setForeground(Color.red);
+						dup.setText("5자 이상 입력하세요.");
+					} else if (userID.equals(id.getText().toUpperCase()) || b1 == false) {
+						dup.setForeground(Color.red);
+						dup.setText("사용할 수 없는 아이디 입니다.");
+						break;
+					} else {
+						dup.setForeground(Color.blue);
+						dup.setText("사용할 수 있는 아이디 입니다.");
+						pw.setEditable(true);
+						pw.addKeyListener(this);
+						pw2.addKeyListener(this);
+						pw2.setEditable(true);
+						pw.setFocusable(true);
+						pw2.setFocusable(true);
+						pw2.addMouseListener(new MouseListener() {
+
+							@Override
+							public void mouseClicked(MouseEvent e) {
 							}
-						}
 
-						@Override
-						public void mouseReleased(MouseEvent e) {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void mouseEntered(MouseEvent e) {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void mouseExited(MouseEvent e) {
-							// TODO Auto-generated method stub
-
-						}
-					});
-					pw.addMouseListener(new MouseListener() {
-
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void mousePressed(MouseEvent e) {
-							// TODO Auto-generated method stub
-							if (pw.getText().equals("비밀번호를 입력하세요.")) {
-								pw.setText(null);
-								pw.setEchoChar('*');
+							@Override
+							public void mousePressed(MouseEvent e) {
+								if (pw2.getText().equals("비밀번호를 다시 한번 입력하세요.")) {
+									pw2.setText(null);
+									pw2.setEchoChar('*');
+								}
 							}
-						}
 
-						@Override
-						public void mouseReleased(MouseEvent e) {
-							// TODO Auto-generated method stub
+							@Override
+							public void mouseReleased(MouseEvent e) {
+							}
 
-						}
+							@Override
+							public void mouseEntered(MouseEvent e) {
+							}
 
-						@Override
-						public void mouseEntered(MouseEvent e) {
-							// TODO Auto-generated method stub
+							@Override
+							public void mouseExited(MouseEvent e) {
+							}
+						});
+						pw.addMouseListener(new MouseListener() {
 
-						}
+							@Override
+							public void mouseClicked(MouseEvent e) {
+							}
 
-						@Override
-						public void mouseExited(MouseEvent e) {
-							// TODO Auto-generated method stub
+							@Override
+							public void mousePressed(MouseEvent e) {
+								if (pw.getText().equals("비밀번호를 입력하세요.")) {
+									pw.setText(null);
+									pw.setEchoChar('*');
+								}
+							}
 
-						}
-					});
+							@Override
+							public void mouseReleased(MouseEvent e) {
+							}
+
+							@Override
+							public void mouseEntered(MouseEvent e) {
+							}
+
+							@Override
+							public void mouseExited(MouseEvent e) {
+							}
+						});
+					}
 				}
 			}
 		}
@@ -297,13 +328,10 @@ public class SignUp extends WindowAdapter implements ActionListener, KeyListener
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getComponent().equals(pw) && pw.getText().equals("비밀번호를 입력하세요.")) {
 			pw.setText(null);
 			pw.setEchoChar('*');
@@ -315,7 +343,5 @@ public class SignUp extends WindowAdapter implements ActionListener, KeyListener
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 }
