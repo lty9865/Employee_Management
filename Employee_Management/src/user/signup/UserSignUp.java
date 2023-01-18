@@ -53,6 +53,29 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 		empNo.setLocation(20, 50);
 		empNo.addMouseListener(this);
 		empNo.addKeyListener(this);
+		empNo.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyChar() == ' ') {
+					e.consume();
+				}
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyChar() == KeyEvent.VK_TAB) {
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		l1 = new Label();
 		l1.setSize(frame.getSize().width - 40, 20);
@@ -78,6 +101,29 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 		id.addKeyListener(this);
 		id.setEditable(false);
 		id.setFocusable(false);
+		id.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyChar() == ' ') {
+					e.consume();
+				}
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyChar() == KeyEvent.VK_TAB) {
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		l2 = new Label();
 		l2.setSize(l1.getSize());
@@ -97,6 +143,29 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 		pw1.addKeyListener(this);
 		pw1.setEditable(false);
 		pw1.setFocusable(false);
+		pw1.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyChar() == ' ') {
+					e.consume();
+				}
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyChar() == KeyEvent.VK_TAB) {
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		pw2 = new TextField("비밀번호를 다시 한번 입력하세요.");
 		pw2.setSize(pw1.getSize());
@@ -104,6 +173,29 @@ public class UserSignUp extends WindowAdapter implements ActionListener, MouseLi
 		pw2.addKeyListener(this);
 		pw2.setEditable(false);
 		pw2.setFocusable(false);
+		pw2.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyChar() == ' ') {
+					e.consume();
+				}
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyChar() == KeyEvent.VK_TAB) {
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		l3 = new Label();
 		l3.setSize(l2.getSize());

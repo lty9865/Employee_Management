@@ -68,7 +68,7 @@ public class SearchNameDao {
 				sb.append(strDate1);
 				sb.append(c);
 
-				query = "INSERT INTO SUGGESTIONS VALUES (?,?,?,?,?,?)";
+				query = "INSERT INTO SUGGESTIONS VALUES (?,?,?,?,?,?,?)";
 				pstmt = cn.getCon().prepareStatement(query);
 
 				pstmt.setString(1, deptID);
@@ -77,6 +77,7 @@ public class SearchNameDao {
 				pstmt.setString(4, strDate);
 				pstmt.setString(5, sb.toString());
 				pstmt.setString(6, null);
+				pstmt.setString(7, null);
 
 				pstmt.execute();
 			}

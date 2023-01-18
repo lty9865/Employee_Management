@@ -1,7 +1,9 @@
 package admin.mainScreen;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import db.ConnectDB;
 
@@ -125,7 +127,11 @@ public class TableDao {
 		try {
 			ConnectDB cn = new ConnectDB();
 
-			query = "UPDATE SUGGESTIONS SET STAT = '처리완료' WHERE SUGNUM = '" + sugNum + "'";
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String strDate = sdf.format(date);
+
+			query = "UPDATE SUGGESTIONS SET STAT = '처리완료', RESTIME = '" + strDate + "' WHERE SUGNUM = '" + sugNum + "'";
 			cn.getStmt().executeUpdate(query);
 
 			cn.getStmt().close();
@@ -149,6 +155,21 @@ public class TableDao {
 				cn.getCon().close();
 				cn.getStmt().close();
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void refreshSugg(String nowdate) {
+		try {
+			ConnectDB cn = new ConnectDB();
+
+			query = "delete from suggestions where to_char(to_date(restime) + interval '7' day, 'YYYY-MM-DD') = '"
+					+ nowdate + "'";
+			cn.getStmt().execute(query);
+
+			cn.getCon().close();
+			cn.getStmt().close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

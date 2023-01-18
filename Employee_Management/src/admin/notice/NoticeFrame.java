@@ -103,8 +103,4 @@ public class NoticeFrame extends WindowAdapter implements ActionListener {
 			frame.dispose();
 		}
 	}
-
-	public Frame getFrame() {
-		return frame;
-	}
 }

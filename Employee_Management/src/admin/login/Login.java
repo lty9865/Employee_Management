@@ -9,18 +9,17 @@ import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import admin.demension.AdminDimension;
 import admin.mainScreen.MainScreen;
-import admin.mainScreen.TableDao;
 import admin.signUp.SignUp;
 import common.loginDao.LoginDao;
 import common.loginDao.LoginVo;
@@ -52,11 +51,6 @@ public class Login extends WindowAdapter implements ActionListener {
 	Color selectColor = new Color(0, 153, 255);
 
 	public Login() {
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String strDate = sdf.format(date);
-
-		new TableDao().updateComm(strDate);
 
 		// 프레임 설정
 		frame = new Frame("Employee Management");
@@ -73,15 +67,60 @@ public class Login extends WindowAdapter implements ActionListener {
 		id = new TextField();
 		id.setSize(330, 40);
 		id.setLocation(id1.getLocation().x, id1.getLocation().y + id1.getSize().height);
+		id.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyChar() == ' ') {
+					e.consume();
+				}
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		pw1 = new Label("PASSWORD");
 		pw1.setSize(id1.getSize());
 		pw1.setLocation(id.getLocation().x, id.getLocation().y + id.getSize().height + 20);
 		pw1.setFont(font.getFont3());
+
 		pw = new TextField();
 		pw.setSize(id.getSize());
 		pw.setLocation(pw1.getLocation().x, pw1.getLocation().y + pw1.getSize().height);
 		pw.setEchoChar('*');
+		pw.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyChar() == ' ') {
+					e.consume();
+				}
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		// 버튼 설정
 		ok = new RoundedButton("로그인");
